@@ -1,2 +1,2 @@
 # monster-maker
-For kids
+Super simple game for toddlers.
