@@ -1,1 +1,41 @@
-<h1>delete me</h1>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Monster Maker!</title>
+    <meta charset="UTF-8" />
+    <meta name="author" content="Paul Hitz" />
+    <script>
+        /**
+         * Display a random image.
+         */
+        function refresh() {
+            var numImages = 3;
+            var randomHead = Math.floor((Math.random() * numImages) + 1);
+            var randomTorso = Math.floor((Math.random() * numImages) + 1);
+            var randomLegs = Math.floor((Math.random() * numImages) + 1);
+
+            //Display the photo.
+            var head = document.getElementById('head');
+            var torso = document.getElementById('torso');
+            var legs = document.getElementById('legs');
+            if (head !== null && torso !== null && legs !== null) {
+                head.src = "images/head/" + randomHead + ".png";
+                torso.src = "images/torso/" + randomTorso + ".png";
+                legs.src = "images/legs/" + randomLegs + ".png";
+                
+                //photoElement.style.display = 'block';
+            }  
+        }
+    </script>
+</head>
+<body onload="javascript:refresh();">
+    <h1>Monster Maker!</h1>
+
+    <p><a href="javascript:refresh();">Refresh</a></p>
+
+    <img src="images/head/0.png" id="head" style="width: 80%; height: 30%; max-width: 800px;">
+    <img src="images/torso/0.png" id="torso" style="width: 80%; height: 30%; max-width: 800px;">
+    <img src="images/legs/0.png" id="legs" style="width: 80%; height: 30%; max-width: 800px;">
+
+</body>
+</html>
