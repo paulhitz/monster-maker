@@ -1,0 +1,13 @@
+
+
+a {
+    font-size: xxx-large;
+}
+
+img {
+    width: 90%;
+    max-width: 1000px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
