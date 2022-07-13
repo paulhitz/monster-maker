@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Monster Maker!</title>
+    <meta charset="UTF-8" />
+    <meta name="author" content="Paul Hitz" />
+    <!-- <link href="styles/styles.css" rel="stylesheet" type="text/css" /> -->
+    <!-- <script src="scripts/scripts.js"></script> -->
+
+<script>
+    /**
+ * Display a random image.
+ */
+function refreshAll() {
+    refreshHead();
+    refreshTorso();
+    refreshLegs();
+}
+function refreshHead() {
+    refresh(document.getElementById('head'));
+    //alert("test1");
+}
+function refreshTorso() {
+    refresh(document.getElementById('torso'));
+}
+function refreshLegs() {
+    refresh(document.getElementById('legs'));
+}
+function refresh(element) {
+    const NUMBER_OF_IMAGES = 3;
+    if (element !== null) {
+        var random = Math.floor((Math.random() * NUMBER_OF_IMAGES) + 1);
+        element.src = `images/monsters/${random}.png`;
+        //alert("test2 = " + element.src);
+    }
+}
+</script>
+
+    <style>
+/* div {
+    width: 90%;
+    height: 300px;
+    background-image: url('images/placeholder.png');
+}
+div#head {
+    
+    clip-path: inset(0px 0 200px 0);
+    border: solid;
+    margin: 0px 0 -300px 0;
+}
+div#torso {   
+    clip-path: inset(110px 0 120px 0);
+    border: solid;
+    margin: -310px 0 -120px 0;
+}
+div#legs {   
+    clip-path: inset(210px 0 0px 0);
+    border: solid;
+    margin: -310px 0 -120px 0;
+} */
+
+img {
+    width: 90%;
+    display: block;
+    background-image: url("images/0.png");
+    background-repeat: repeat-y;
+}
+img#head {
+    background-position: 0px 0px;
+}
+img#torso {
+    background-position: 0px -200px;
+}
+img#legs {
+    background-position: 0px 200px;
+}
+
+    </style>
+</head>
+<body>
+    <h1>Monster Maker!</h1>
+
+    <p><a href="javascript:refreshAll();">Refresh</a></p>
+
+    <!-- <div id="head" style=" " ></div>
+    <div id="torso"></div>
+    <div id="legs"></div> -->
+
+    <img src="images/pixel.png" id="head" height="200" onclick="refreshHead(this);">
+    <img src="images/pixel.png" id="torso" height="200" onclick="refreshTorso(this);">
+    <img src="images/pixel.png" id="legs" height="200" onclick="refreshLegs(this);">
+
+
+    <p>test2</p>
+
+
+<!-- 
+    <img src="images/head/0.png" id="head" onclick="refreshHead(this);" />
+    <img src="images/torso/0.png" id="torso" onclick="refreshTorso(this);" />
+    <img src="images/legs/0.png" id="legs" onclick="refreshLegs(this);" /> -->
+
+</body>
+</html>

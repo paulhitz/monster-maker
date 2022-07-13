@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Monster Maker!</title>
+    <meta charset="UTF-8" />
+    <meta name="author" content="Paul Hitz" />
+    <link href="styles/styles.css" rel="stylesheet" type="text/css" />
+    <script src="scripts/scripts.js"></script>
+
+<style>
+    /* img {
+    background-image: url("images/monsters/0.png");
+    background-repeat: repeat-y;
+    width: 90%;
+    max-width: 1000px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    background-position: 0px 0px;
+} */
+</style>
+
+</head>
+<body>
+    <img src="images/reload.png" id="reload" width="100" height="100" onclick="refreshAll();" />
+    <h1>Monster Maker!</h1>
+
+    <img src="images/pixel.png" height="200" id="head" onclick="refreshHead(this);" />
+    <img src="images/pixel.png" height="200" id="torso" onclick="refreshTorso(this);" />
+    <img src="images/pixel.png" height="200" id="legs" onclick="refreshLegs(this);" />
+
+</body>
+</html>

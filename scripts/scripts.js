@@ -16,9 +16,9 @@ function refreshLegs() {
     refresh(document.getElementById('legs'));
 }
 function refresh(element) {
-    const NUMBER_OF_IMAGES = 3;
+    const NUMBER_OF_IMAGES = 7;
     if (element !== null) {
         var random = Math.floor((Math.random() * NUMBER_OF_IMAGES) + 1);
-        element.src = `images/${element.id}/${random}.png`;
+        element.style.backgroundImage = "url('images/monsters/" + random + ".png')";
     }
 }
