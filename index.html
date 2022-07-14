@@ -1,19 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- Life would be so much easier if we could just look at the source code... -->
     <title>Monster Maker!</title>
     <meta charset="UTF-8" />
     <meta name="author" content="Paul Hitz" />
+    <meta name="robots" content="index, follow" />
+    <meta name="description" content="A simple game for toddlers. Allows kids to mix and match monster heads, torsos and legs." />
+    <meta name="keywords" content="monsters, toddlers, kids, game, fun" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link href="styles/styles.css" rel="stylesheet" type="text/css" />
     <script src="scripts/scripts.js"></script>
 </head>
 <body onload="refreshAll();">
-    <img src="images/reload.png" id="reload" width="100" height="100" onclick="refreshAll();" />
     <h1>Monster Maker!</h1>
+    <img src="images/reload.png" id="reload" width="100" height="100" onclick="refreshAll();" />
 
     <img src="images/pixel.png" height="200" width="600" id="head" onclick="refreshHead(this);" />
     <img src="images/pixel.png" height="200" width="600" id="torso" onclick="refreshTorso(this);" />
     <img src="images/pixel.png" height="200" width="600" id="legs" onclick="refreshLegs(this);" />
-
 </body>
 </html>
