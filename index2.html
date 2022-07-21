@@ -1,69 +1,44 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Monster Maker!</title>
-    <meta charset="UTF-8" />
-    <meta name="author" content="Paul Hitz" />
-    <!-- <link href="styles/styles.css" rel="stylesheet" type="text/css" /> -->
-    <!-- <script src="scripts/scripts.js"></script> -->
+  <!-- Life would be so much easier if we could just look at the source code... -->
+  <title>Monster Maker!</title>
 
-<script>
-    /**
- * Display a random image.
- */
-function refreshAll() {
-    refreshHead();
-    refreshTorso();
-    refreshLegs();
-}
-function refreshHead() {
-    refresh(document.getElementById('head'));
-    //alert("test1");
-}
-function refreshTorso() {
-    refresh(document.getElementById('torso'));
-}
-function refreshLegs() {
-    refresh(document.getElementById('legs'));
-}
-function refresh(element) {
-    const NUMBER_OF_IMAGES = 3;
-    if (element !== null) {
-        var random = Math.floor((Math.random() * NUMBER_OF_IMAGES) + 1);
-        element.src = `images/monsters/${random}.png`;
-        //alert("test2 = " + element.src);
-    }
-}
-</script>
+  <meta charset="UTF-8" />
+  <meta name="author" content="Paul Hitz" />
+  <meta name="robots" content="index, follow" />
+  <meta name="description" content="A simple game for toddlers. Allows kids to mix and match monster heads, torsos and legs." />
+  <meta name="keywords" content="monsters, toddlers, kids, game, fun" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-title" content="Monsters!">
+  <meta name="application-name" content="Monsters!">
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
 
-    <style>
-/* div {
-    width: 90%;
-    height: 300px;
-    background-image: url('images/placeholder.png');
-}
-div#head {
-    
-    clip-path: inset(0px 0 200px 0);
-    border: solid;
-    margin: 0px 0 -300px 0;
-}
-div#torso {   
-    clip-path: inset(110px 0 120px 0);
-    border: solid;
-    margin: -310px 0 -120px 0;
-}
-div#legs {   
-    clip-path: inset(210px 0 0px 0);
-    border: solid;
-    margin: -310px 0 -120px 0;
-} */
+  <link rel="icon" href="favicon.ico" type="image/ico" />
+  <link rel="apple-touch-icon" sizes="152x152" href="images/icons/icon_152x152.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="images/icons/icon_180x180.png">
+  <link rel="apple-touch-icon" sizes="167x167" href="images/icons/icon_167x167.png">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
 
-img {
-    width: 90%;
-    display: block;
-    background-image: url("images/0.png");
+  <style>
+    nav {
+    margin-bottom: 20px;
+}
+
+span#page-title {
+    padding-top: 8px;
+    padding-bottom: 8px;
+}
+
+img#head, img#torso, img#legs {
+    background-image: url("images/monsters/0.png");
     background-repeat: repeat-y;
+    min-width: 600px;
+    max-width: 1000px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
 }
 img#head {
     background-position: 0px 0px;
@@ -75,29 +50,105 @@ img#legs {
     background-position: 0px 200px;
 }
 
-    </style>
+#fixed-top-button {
+    position: fixed;
+    top: 8px;
+    right: 8px;
+    z-index: 1000;
+}
+
+canvas {
+    border: 1px solid #d3d3d3;
+    max-width: 600px;
+    width: 100%;
+    height: 600px;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+}
+  </style>
+
+  <script>
+
+function refreshAll() {
+    refreshHead();
+    refreshTorso();
+    refreshLegs();
+    drawMonster();
+}
+function refreshHead() {
+    refresh(document.getElementById('head'));
+}
+function refreshTorso() {
+    refresh(document.getElementById('torso'));
+}
+function refreshLegs() {
+    refresh(document.getElementById('legs'));
+}
+function refresh(element) {
+    const NUMBER_OF_IMAGES = 9;
+    if (element !== null) {
+        var random = Math.floor((Math.random() * NUMBER_OF_IMAGES) + 1);
+        //element.style.backgroundImage = "url('images/monsters/" + random + ".png')";
+        element.src = `images/monsters/${random}.png`;
+    }
+}
+
+
+  </script>
 </head>
-<body>
-    <h1>Monster Maker!</h1>
+<body onload="refreshAll();">
 
-    <p><a href="javascript:refreshAll();">Refresh</a></p>
+  <button id="fixed-top-button" type="button" class="btn btn-success btn-lg" onclick="refreshAll();" title="Reload the Monster!">
+    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-arrow-clockwise" viewBox="0 0 16 16">
+      <path fill-rule="evenodd" d="M8 3a5 5 0 1 0 4.546 2.914.5.5 0 0 1 .908-.417A6 6 0 1 1 8 2v1z"/>
+      <path d="M8 4.466V.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384L8.41 4.658A.25.25 0 0 1 8 4.466z"/>
+    </svg>
+  </button>
 
-    <!-- <div id="head" style=" " ></div>
-    <div id="torso"></div>
-    <div id="legs"></div> -->
+  <nav class="navbar bg-dark text-white">
+    <div class="container-fluid"></div>
+      <span id="page-title" class="fs-4 mx-auto">Monster Maker!</span>
+    </div>
+  </nav>
 
-    <img src="images/pixel.png" id="head" height="200" onclick="refreshHead(this);">
-    <img src="images/pixel.png" id="torso" height="200" onclick="refreshTorso(this);">
-    <img src="images/pixel.png" id="legs" height="200" onclick="refreshLegs(this);">
+  <!-- <img src="images/pixel.png" height="200" width="600" id="head" onclick="refreshHead(this);" />
+  <img src="images/pixel.png" height="200" width="600" id="torso" onclick="refreshTorso(this);" />
+  <img src="images/pixel.png" height="200" width="600" id="legs" onclick="refreshLegs(this);" /> -->
+
+  <img src="images/monsters/9.png" id="head" width="600" height="600" style="margin-left: auto; margin-right: auto; display: none;" />
+  <img src="images/monsters/1.png" id="torso" width="600" height="600" style="margin-left: auto; margin-right: auto; display: none;" />
+  <img src="images/monsters/8.png" id="legs" width="600" height="600" style="margin-left: auto; margin-right: auto; display: none;" />
+  <canvas id="canvas" width="600" height="600"></canvas>
 
 
-    <p>test2</p>
+  <script>
+    window.onload = function() {
+
+        drawMonster();
 
 
-<!-- 
-    <img src="images/head/0.png" id="head" onclick="refreshHead(this);" />
-    <img src="images/torso/0.png" id="torso" onclick="refreshTorso(this);" />
-    <img src="images/legs/0.png" id="legs" onclick="refreshLegs(this);" /> -->
+        //TODO remove magic numbers and refactor.
+        //TODO get refresh to work.
+        //TODO add ability to click individual body part.
+        //TODO tweak appearance on iphone/ipad. max-width etc.
+        //src-img, src-x, src-y, src-width, src-height, dest-x, dest-y, dest-width, dest-height.
+    };
+
+    function drawMonster() {
+        var canvas = document.getElementById("canvas");
+        var ctx = canvas.getContext("2d");
+        //TODO set bg colour to white.
+        ctx.fillStyle = "white";
+        ctx.fillRect(0, 0, 600, 600);
+        var img1 = document.getElementById("head");
+        var img2 = document.getElementById("torso");
+        var img3 = document.getElementById("legs");
+        ctx.drawImage(img1, 0, 0, 600, 200, 0, 0, 600, 200);
+        ctx.drawImage(img2, 0, 200, 600, 200, 0, 200, 600, 200);
+        ctx.drawImage(img3, 0, 400, 600, 200, 0, 400, 600, 200);
+}
+    </script>
 
 </body>
 </html>
