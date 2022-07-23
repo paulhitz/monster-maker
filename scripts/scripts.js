@@ -1,5 +1,5 @@
 const NUMBER_OF_IMAGES = 8;
-const SECTION_HEIGHT = 200;
+const SECTION_HEIGHT = 250;
 let canvas;
 let ctx;
 let images = [];
@@ -86,8 +86,6 @@ function drawMonster(myMonster) {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   ctx.drawImage(myMonster.head, 0, 0, canvas.width, SECTION_HEIGHT, 0, 0, canvas.width, SECTION_HEIGHT);
   ctx.drawImage(myMonster.torso, 0, SECTION_HEIGHT, canvas.width, SECTION_HEIGHT, 0, SECTION_HEIGHT, canvas.width, SECTION_HEIGHT);
-  ctx.drawImage(myMonster.legs, 0, 400, canvas.width, SECTION_HEIGHT, 0, 400, canvas.width, SECTION_HEIGHT);
+  ctx.drawImage(myMonster.legs, 0, SECTION_HEIGHT * 2, canvas.width, SECTION_HEIGHT, 0, SECTION_HEIGHT * 2, canvas.width, SECTION_HEIGHT);
+  //Reference: drawImage(image, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight)
 }
-
-
-
