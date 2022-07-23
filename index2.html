@@ -22,8 +22,8 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
 
   <style>
-    nav {
-    margin-bottom: 20px;
+nav {
+    margin-bottom: 10px;
 }
 
 span#page-title {
@@ -31,7 +31,7 @@ span#page-title {
     padding-bottom: 8px;
 }
 
-img#head, img#torso, img#legs {
+/* img#head, img#torso, img#legs {
     background-image: url("images/monsters/0.png");
     background-repeat: repeat-y;
     min-width: 600px;
@@ -48,7 +48,7 @@ img#torso {
 }
 img#legs {
     background-position: 0px 200px;
-}
+} */
 
 #fixed-top-button {
     position: fixed;
@@ -65,41 +65,112 @@ canvas {
     margin-left: auto;
     margin-right: auto;
     display: block;
+    cursor: pointer;
 }
   </style>
 
   <script>
+    const NUMBER_OF_IMAGES = 10;
+    const IMAGE_HEIGHT = 600;
+    const IMAGE_WIDTH = 600;
+    const SECTION_HEIGHT = 200;
+    let canvas;
+    let ctx;
+    let images = [];
+    let monster = {};
 
-function refreshAll() {
-    refreshHead();
-    refreshTorso();
-    refreshLegs();
-    drawMonster();
-}
-function refreshHead() {
-    refresh(document.getElementById('head'));
-}
-function refreshTorso() {
-    refresh(document.getElementById('torso'));
-}
-function refreshLegs() {
-    refresh(document.getElementById('legs'));
-}
-function refresh(element) {
-    const NUMBER_OF_IMAGES = 9;
-    if (element !== null) {
-        var random = Math.floor((Math.random() * NUMBER_OF_IMAGES) + 1);
-        //element.style.backgroundImage = "url('images/monsters/" + random + ".png')";
-        element.src = `images/monsters/${random}.png`;
+    //
+    function init() {
+        //check all images are loaded. then pick 3 random images.
+        if (images.length == 0) {
+            loadImages(function() {
+                drawRandomMonster();
+            });
+        } else {
+            drawRandomMonster();
+        }
+
+        //
+        if (canvas == null) {
+            canvas = document.getElementById('canvas');
+            canvas.addEventListener('mousedown', e => {
+                let yAxis = e.offsetY;
+                if (yAxis < SECTION_HEIGHT) {
+                    monster.head = randomImage(images);
+                } else if (yAxis > SECTION_HEIGHT * 2) {
+                    monster.legs = randomImage(images);
+                } else {
+                    monster.torso = randomImage(images);
+                }
+                drawMonster(monster);
+            });
+            ctx = canvas.getContext('2d');
+        }
     }
-}
 
+    //Pre-load images so they can be rendered on the canvas.
+    function loadImages(callback) {
+        var loadedImages = 0;
+        for (var i = 0; i < NUMBER_OF_IMAGES; i++) {
+            var img = new Image();
+            img.src = `images/monsters/${i}.png`;
+            img.onload = function() {
+                if(++loadedImages >= NUMBER_OF_IMAGES) {
+                    callback();
+                }
+            };
+            images[i] = img;
+        }
+    }
+
+    //Return a random entry from the supplied array.
+    function randomImage(images) {
+        let randomNumber = Math.floor((Math.random() * images.length));
+        console.log("random number = " + randomNumber);
+        return images[randomNumber];
+    }
+
+
+    function drawRandomMonster() {
+        drawMonster({
+            "head" : randomImage(images),
+            "torso" : randomImage(images),
+            "legs" : randomImage(images)
+        });
+    }
+
+    //TODO use an array of object? [{id: "head", startHeight: 0}]
+    //
+    function drawMonster(monster) {
+        this.monster = monster;
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        console.log("head = " + monster.head);
+        console.log("torso = " + monster.torso);
+        console.log("legs = " + monster.legs);
+        console.log("***** ");
+
+        if (monster.head != null) {
+            ctx.drawImage(monster.head, 0, 0, canvas.width, SECTION_HEIGHT, 0, 0, canvas.width, SECTION_HEIGHT);
+        }
+        if (monster.torso != null) {
+            ctx.drawImage(monster.torso, 0, SECTION_HEIGHT, canvas.width, SECTION_HEIGHT, 0, SECTION_HEIGHT, canvas.width, SECTION_HEIGHT);
+        }
+        if (monster.legs != null) {
+            ctx.drawImage(monster.legs, 0, 400, canvas.width, SECTION_HEIGHT, 0, 400, canvas.width, SECTION_HEIGHT);
+        }
+
+        //TODO tidy this
+        // ctx.drawImage(head, 0, 0, IMAGE_WIDTH, SECTION_HEIGHT, 0, 0, IMAGE_WIDTH, SECTION_HEIGHT); //todo DO WE NEED ALL THE PARAMS?
+        // ctx.drawImage(torso, 0, SECTION_HEIGHT, IMAGE_WIDTH, SECTION_HEIGHT, 0, SECTION_HEIGHT, IMAGE_WIDTH, SECTION_HEIGHT);
+        // ctx.drawImage(legs, 0, 400, IMAGE_WIDTH, SECTION_HEIGHT, 0, 400, IMAGE_WIDTH, SECTION_HEIGHT);
+    }
 
   </script>
 </head>
-<body onload="refreshAll();">
+<body onload="init();">
 
-  <button id="fixed-top-button" type="button" class="btn btn-success btn-lg" onclick="refreshAll();" title="Reload the Monster!">
+  <button id="fixed-top-button" type="button" class="btn btn-success btn-lg" onclick="init();" title="Reload the Monster!">
     <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-arrow-clockwise" viewBox="0 0 16 16">
       <path fill-rule="evenodd" d="M8 3a5 5 0 1 0 4.546 2.914.5.5 0 0 1 .908-.417A6 6 0 1 1 8 2v1z"/>
       <path d="M8 4.466V.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384L8.41 4.658A.25.25 0 0 1 8 4.466z"/>
@@ -112,42 +183,44 @@ function refresh(element) {
     </div>
   </nav>
 
-  <!-- <img src="images/pixel.png" height="200" width="600" id="head" onclick="refreshHead(this);" />
-  <img src="images/pixel.png" height="200" width="600" id="torso" onclick="refreshTorso(this);" />
-  <img src="images/pixel.png" height="200" width="600" id="legs" onclick="refreshLegs(this);" /> -->
-
-  <img src="images/monsters/9.png" id="head" width="600" height="600" style="margin-left: auto; margin-right: auto; display: none;" />
-  <img src="images/monsters/1.png" id="torso" width="600" height="600" style="margin-left: auto; margin-right: auto; display: none;" />
-  <img src="images/monsters/8.png" id="legs" width="600" height="600" style="margin-left: auto; margin-right: auto; display: none;" />
-  <canvas id="canvas" width="600" height="600"></canvas>
+  <canvas id="canvas" width="600" height="600">
+    <p>HTML Canvas not supported.</p>
+    <pre>
+              ___====-_  _-====___
+        _--^^^#####//      \\#####^^^--_
+     _-^##########// (    ) \\##########^-_
+    -############//  |\^^/|  \\############-
+  _/############//   (@::@)   \\############\_
+ /#############((     \\//     ))#############\
+-###############\\    (oo)    //###############-
+-#################\\  / VV \  //#################-
+-###################\\/      \//###################-
+_#/|##########/\######(   /\   )######/\##########|\#_
+|/ |#/\#/\#/\/  \#/\##\  |  |  /##/\#/  \/\#/\#/\#| \|
+`  |/  V  V  `   V  \#\| |  | |/#/  V   '  V  V  \|  '
+`   `  `      `   / | |  | | \   '      '  '   '
+                 (  | |  | |  )
+                __\ | |  | | /__
+               (vvv(VVV)(VVV)vvv)
+    </pre>
+  </canvas>
 
 
   <script>
-    window.onload = function() {
 
-        drawMonster();
-
-
-        //TODO remove magic numbers and refactor.
-        //TODO get refresh to work.
-        //TODO add ability to click individual body part.
-        //TODO tweak appearance on iphone/ipad. max-width etc.
-        //src-img, src-x, src-y, src-width, src-height, dest-x, dest-y, dest-width, dest-height.
-    };
-
-    function drawMonster() {
-        var canvas = document.getElementById("canvas");
-        var ctx = canvas.getContext("2d");
-        //TODO set bg colour to white.
-        ctx.fillStyle = "white";
-        ctx.fillRect(0, 0, 600, 600);
-        var img1 = document.getElementById("head");
-        var img2 = document.getElementById("torso");
-        var img3 = document.getElementById("legs");
-        ctx.drawImage(img1, 0, 0, 600, 200, 0, 0, 600, 200);
-        ctx.drawImage(img2, 0, 200, 600, 200, 0, 200, 600, 200);
-        ctx.drawImage(img3, 0, 400, 600, 200, 0, 400, 600, 200);
-}
+/*
+TODO
+-get it working with the refresh buttons.
+-Clean this mess up. Remove the old now dead code. 
+-put the code either in the HTML head or at the bottom of the file.
+-Simplify the code and refine it. It's clunky and a mess.
+-continue reading about HTML canvas
+-tidy, tidy, tidy, refine etc. 
+-try media queries, etc.
+-move it to index.html, scripts.js, style.css etc. and push it.
+-move to a height of ?900? pixels. test it on ios. Recreate the images with this height. 
+Done / Profit
+*/
     </script>
 
 </body>
