@@ -31,25 +31,6 @@ span#page-title {
     padding-bottom: 8px;
 }
 
-/* img#head, img#torso, img#legs {
-    background-image: url("images/monsters/0.png");
-    background-repeat: repeat-y;
-    min-width: 600px;
-    max-width: 1000px;
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-}
-img#head {
-    background-position: 0px 0px;
-}
-img#torso {
-    background-position: 0px -200px;
-}
-img#legs {
-    background-position: 0px 200px;
-} */
-
 #fixed-top-button {
     position: fixed;
     top: 8px;
@@ -126,7 +107,6 @@ canvas {
     //Return a random entry from the supplied array.
     function randomImage(images) {
         let randomNumber = Math.floor((Math.random() * images.length));
-        console.log("random number = " + randomNumber);
         return images[randomNumber];
     }
 
@@ -141,25 +121,15 @@ canvas {
 
     //TODO use an array of object? [{id: "head", startHeight: 0}]
     //
-    function drawMonster(monster) {
-        this.monster = monster;
+    function drawMonster(myMonster) {
+        monster = myMonster;
         ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-        console.log("head = " + monster.head);
-        console.log("torso = " + monster.torso);
-        console.log("legs = " + monster.legs);
-        console.log("***** ");
-
-        if (monster.head != null) {
-            ctx.drawImage(monster.head, 0, 0, canvas.width, SECTION_HEIGHT, 0, 0, canvas.width, SECTION_HEIGHT);
-        }
-        if (monster.torso != null) {
-            ctx.drawImage(monster.torso, 0, SECTION_HEIGHT, canvas.width, SECTION_HEIGHT, 0, SECTION_HEIGHT, canvas.width, SECTION_HEIGHT);
-        }
-        if (monster.legs != null) {
-            ctx.drawImage(monster.legs, 0, 400, canvas.width, SECTION_HEIGHT, 0, 400, canvas.width, SECTION_HEIGHT);
-        }
-
+        //
+        ctx.drawImage(myMonster.head, 0, 0, canvas.width, SECTION_HEIGHT, 0, 0, canvas.width, SECTION_HEIGHT);
+        ctx.drawImage(myMonster.torso, 0, SECTION_HEIGHT, canvas.width, SECTION_HEIGHT, 0, SECTION_HEIGHT, canvas.width, SECTION_HEIGHT);
+        ctx.drawImage(myMonster.legs, 0, 400, canvas.width, SECTION_HEIGHT, 0, 400, canvas.width, SECTION_HEIGHT);
+        
         //TODO tidy this
         // ctx.drawImage(head, 0, 0, IMAGE_WIDTH, SECTION_HEIGHT, 0, 0, IMAGE_WIDTH, SECTION_HEIGHT); //todo DO WE NEED ALL THE PARAMS?
         // ctx.drawImage(torso, 0, SECTION_HEIGHT, IMAGE_WIDTH, SECTION_HEIGHT, 0, SECTION_HEIGHT, IMAGE_WIDTH, SECTION_HEIGHT);
@@ -210,9 +180,8 @@ _#/|##########/\######(   /\   )######/\##########|\#_
 
 /*
 TODO
--get it working with the refresh buttons.
+
 -Clean this mess up. Remove the old now dead code. 
--put the code either in the HTML head or at the bottom of the file.
 -Simplify the code and refine it. It's clunky and a mess.
 -continue reading about HTML canvas
 -tidy, tidy, tidy, refine etc. 
