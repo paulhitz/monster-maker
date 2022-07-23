@@ -9,9 +9,9 @@
   <meta name="robots" content="index, follow" />
   <meta name="description" content="A simple game for toddlers. Allows kids to mix and match monster heads, torsos and legs." />
   <meta name="keywords" content="monsters, toddlers, kids, game, fun" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="apple-mobile-web-app-title" content="Monsters!">
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
   <meta name="application-name" content="Monsters!">
+  <meta name="apple-mobile-web-app-title" content="Monsters!">
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
 
@@ -24,9 +24,9 @@
 
   <script src="scripts/scripts.js"></script>
 </head>
-<body onload="refreshAll();">
+<body onload="init();">
 
-  <button id="fixed-top-button" type="button" class="btn btn-success btn-lg" onclick="refreshAll();" title="Reload the Monster!">
+  <button id="fixed-top-button" type="button" class="btn btn-success btn-lg" onclick="init();" title="Reload the Monster!">
     <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-arrow-clockwise" viewBox="0 0 16 16">
       <path fill-rule="evenodd" d="M8 3a5 5 0 1 0 4.546 2.914.5.5 0 0 1 .908-.417A6 6 0 1 1 8 2v1z"/>
       <path d="M8 4.466V.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384L8.41 4.658A.25.25 0 0 1 8 4.466z"/>
@@ -39,9 +39,29 @@
     </div>
   </nav>
 
-  <img src="images/pixel.png" height="200" width="600" id="head" onclick="refreshHead(this);" />
-  <img src="images/pixel.png" height="200" width="600" id="torso" onclick="refreshTorso(this);" />
-  <img src="images/pixel.png" height="200" width="600" id="legs" onclick="refreshLegs(this);" />
+  <canvas id="canvas" width="600" height="600">
+    <div>
+      <p>Unfortunately HTML Canvas is not supported in this browser. Here's a consolation dragon to make up for it...</p>
+      <pre>
+                 ___====-_  _-====___
+           _--^^^#####//      \\#####^^^--_
+        _-^##########// (    ) \\##########^-_
+       -############//  |\^^/|  \\############-
+     _/############//   (@::@)   \\############\_
+    /#############((     \\//     ))#############\
+   -###############\\    (oo)    //###############-
+  -#################\\  / VV \  //#################-
+ -###################\\/      \//###################-
+_#/|##########/\######(   /\   )######/\##########|\#_
+|/ |#/\#/\#/\/  \#/\##\  |  |  /##/\#/  \/\#/\#/\#| \|
+`  |/  V  V  `   V  \#\| |  | |/#/  V   '  V  V  \|  '
+`   `  `         `   / | |  | | \   '      '  '   '
+                    (  | |  | |  )
+                   __\ | |  | | /__
+                  (vvv(VVV)(VVV)vvv)
+      </pre>
+    </div>
+  </canvas>
 
 </body>
 </html>
