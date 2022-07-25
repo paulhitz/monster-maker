@@ -1,4 +1,4 @@
-const NUMBER_OF_IMAGES = 8;
+const NUMBER_OF_IMAGES = 9;
 const SECTION_HEIGHT = 250;
 let canvas;
 let ctx;
