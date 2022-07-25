@@ -37,6 +37,9 @@ function init() {
     });
     ctx = canvas.getContext('2d');
   }
+
+  //Generate a gallery of all the monster images.
+  generateGallery();
 }
 
 /**
@@ -76,6 +79,17 @@ function drawRandomMonster() {
 }
 
 /**
+ * Draw the monster stored at the specified position in the monster array.
+ */
+ function drawSpecificMonster(id) {
+  drawMonster({
+    "head" : images[id],
+    "torso" : images[id],
+    "legs" : images[id]
+  });
+}
+
+/**
  * Draw the supplied monster on the canvas. A monster consists of a random head, torso and legs.
  * 
  * TODO consider adding the body part height and the 'y' co-ord to the monster object rather than specifying it here.
@@ -88,4 +102,54 @@ function drawMonster(myMonster) {
   ctx.drawImage(myMonster.torso, 0, SECTION_HEIGHT, canvas.width, SECTION_HEIGHT, 0, SECTION_HEIGHT, canvas.width, SECTION_HEIGHT);
   ctx.drawImage(myMonster.legs, 0, SECTION_HEIGHT * 2, canvas.width, SECTION_HEIGHT, 0, SECTION_HEIGHT * 2, canvas.width, SECTION_HEIGHT);
   //Reference: drawImage(image, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight)
+}
+
+/**
+ * Download the current monster as a PNG.
+ */
+function download() {
+  let userConfirmed = confirm('Download the current monster?');
+  if (userConfirmed) {
+    const dataURL = canvas.toDataURL();
+    const downloadLink = document.createElement('a');
+    downloadLink.href = dataURL;
+    downloadLink.download = "my_monster.png";
+    downloadLink.click();
+  }
+}
+
+/**
+ * Toggle between the monster and gallery view.
+ * 
+ * TODO Tidy this up. Too much copy and paste. Use array of IDs? Simply flip the visibility.
+ */
+function toggleView(view) {
+  if (view === "gallery") {
+    //Hide the monster canvas and associated UI elements. Show the gallery elements.
+    document.getElementById("gallery").style.display = "block";
+    document.getElementById("back-button").style.display = "block";
+    document.getElementById("canvas").style.display = "none";
+    document.getElementById("reload-button").style.display = "none";
+    document.getElementById("option-buttons").style.display = "none";
+  } else {
+    document.getElementById("gallery").style.display = "none";
+    document.getElementById("back-button").style.display = "none";
+    document.getElementById("canvas").style.display = "block";
+    document.getElementById("reload-button").style.display = "block";
+    document.getElementById("option-buttons").style.display = "block";
+  }
+}
+
+/**
+ * Generate a gallery of all the monster images.
+ */
+function generateGallery() {
+  let gallery = document.getElementById("gallery");
+  for (let i = 0; i < images.length; i++) {
+    images[i].onclick = function() {
+      drawSpecificMonster(i);
+      toggleView("monster");
+    }
+    gallery.appendChild(images[i]);
+  }
 }
