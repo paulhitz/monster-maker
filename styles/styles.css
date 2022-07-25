@@ -8,11 +8,16 @@ span#page-title {
   padding-bottom: 8px;
 }
 
-#fixed-top-button {
+.fixed-header-button {
   position: fixed;
   top: 8px;
-  right: 8px;
   z-index: 1000;
+}
+#reload-button {
+  right: 8px;
+}
+#option-buttons {
+  left: 8px;
 }
 
 canvas#canvas {

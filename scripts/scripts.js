@@ -89,3 +89,14 @@ function drawMonster(myMonster) {
   ctx.drawImage(myMonster.legs, 0, SECTION_HEIGHT * 2, canvas.width, SECTION_HEIGHT, 0, SECTION_HEIGHT * 2, canvas.width, SECTION_HEIGHT);
   //Reference: drawImage(image, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight)
 }
+
+//Download the current monster.
+function download() {
+  console.log("TODO Download Monster");
+  
+}
+
+//Display a gallery of all monsters. Clicking on a monster displays it on the canvas.
+function displayGallery() {
+  console.log("TODO Display gallery");
+}
