@@ -37,6 +37,9 @@ function init() {
     });
     ctx = canvas.getContext('2d');
   }
+
+  //Generate a gallery of all the monster images.
+  generateGallery();
 }
 
 /**
@@ -76,6 +79,17 @@ function drawRandomMonster() {
 }
 
 /**
+ * Draw the monster stored at the specified position in the monster array.
+ */
+ function drawSpecificMonster(id) {
+  drawMonster({
+    "head" : images[id],
+    "torso" : images[id],
+    "legs" : images[id]
+  });
+}
+
+/**
  * Draw the supplied monster on the canvas. A monster consists of a random head, torso and legs.
  * 
  * TODO consider adding the body part height and the 'y' co-ord to the monster object rather than specifying it here.
@@ -104,14 +118,11 @@ function download() {
   }
 }
 
-// //Display a gallery of all monsters. Clicking on a monster displays it on the canvas.
-// function displayGallery() {
-//   console.log("TODO Display gallery2");
-//   document.getElementById("gallery").style.display = "block";
-//   document.getElementById("canvas").style.display = "none";
-// }
-
-//TODO tidy this up. Too much copy and paste. Use array of IDs? flip visibility?
+/**
+ * Toggle between the monster and gallery view.
+ * 
+ * TODO Tidy this up. Too much copy and paste. Use array of IDs? Simply flip the visibility.
+ */
 function toggleView(view) {
   if (view === "gallery") {
     //Hide the monster canvas and associated UI elements. Show the gallery elements.
@@ -129,3 +140,16 @@ function toggleView(view) {
   }
 }
 
+/**
+ * Generate a gallery of all the monster images.
+ */
+function generateGallery() {
+  let gallery = document.getElementById("gallery");
+  for (let i = 0; i < images.length; i++) {
+    images[i].onclick = function() {
+      drawSpecificMonster(i);
+      toggleView("monster");
+    }
+    gallery.appendChild(images[i]);
+  }
+}

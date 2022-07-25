@@ -60,3 +60,7 @@ div#gallery {
 div#gallery h1 {
   text-align: center;
 }
+div#gallery img {
+  width: 100px;
+  cursor: pointer;
+}
