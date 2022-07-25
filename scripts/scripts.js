@@ -90,11 +90,12 @@ function drawMonster(myMonster) {
   //Reference: drawImage(image, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight)
 }
 
-//Download the current monster.
+/**
+ * Download the current monster as a PNG.
+ */
 function download() {
   let userConfirmed = confirm('Download the current monster?');
   if (userConfirmed) {
-    console.log("Download Monster");
     const dataURL = canvas.toDataURL();
     const downloadLink = document.createElement('a');
     downloadLink.href = dataURL;
@@ -103,7 +104,28 @@ function download() {
   }
 }
 
-//Display a gallery of all monsters. Clicking on a monster displays it on the canvas.
-function displayGallery() {
-  console.log("TODO Display gallery");
+// //Display a gallery of all monsters. Clicking on a monster displays it on the canvas.
+// function displayGallery() {
+//   console.log("TODO Display gallery2");
+//   document.getElementById("gallery").style.display = "block";
+//   document.getElementById("canvas").style.display = "none";
+// }
+
+//TODO tidy this up. Too much copy and paste. Use array of IDs? flip visibility?
+function toggleView(view) {
+  if (view === "gallery") {
+    //Hide the monster canvas and associated UI elements. Show the gallery elements.
+    document.getElementById("gallery").style.display = "block";
+    document.getElementById("back-button").style.display = "block";
+    document.getElementById("canvas").style.display = "none";
+    document.getElementById("reload-button").style.display = "none";
+    document.getElementById("option-buttons").style.display = "none";
+  } else {
+    document.getElementById("gallery").style.display = "none";
+    document.getElementById("back-button").style.display = "none";
+    document.getElementById("canvas").style.display = "block";
+    document.getElementById("reload-button").style.display = "block";
+    document.getElementById("option-buttons").style.display = "block";
+  }
 }
+
