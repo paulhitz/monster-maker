@@ -46,7 +46,6 @@ function loadImages(callback) {
   let loadedImages = 0;
   for (let i = 0; i < NUMBER_OF_IMAGES; i++) {
     const img = new Image();
-    //img.crossOrigin = "Anonymous";
     img.src = `images/monsters/${i}.png`;
     img.onload = function() {
       if(++loadedImages >= NUMBER_OF_IMAGES) {
@@ -95,24 +94,12 @@ function drawMonster(myMonster) {
 function download() {
   let userConfirmed = confirm('Download the current monster?');
   if (userConfirmed) {
-    console.log("TODO Download Monster");
-
+    console.log("Download Monster");
     const dataURL = canvas.toDataURL();
-    console.log(dataURL);
-
-    canvas.toBlob(function(blob) { //TODO why tainted?
-      const downloadLink = document.createElement('a');
-      downloadLink.href = URL.createObjectURL(blob);
-      downloadLink.download = "my_monster";
-
-    
-      //document.body.appendChild(newImg);
-    });
-
-    // var downloadLink = angular.element('<a></a>');
-		// downloadLink.attr('href', window.URL.createObjectURL(blob));
-		// downloadLink.attr('download', fileName);
-		// downloadLink[0].click();
+    const downloadLink = document.createElement('a');
+    downloadLink.href = dataURL;
+    downloadLink.download = "my_monster.png";
+    downloadLink.click();
   }
 }
 
