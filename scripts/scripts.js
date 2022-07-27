@@ -38,7 +38,7 @@ function init() {
     ctx = canvas.getContext('2d');
   }
 
-  //Generate a gallery of all the monster images.
+  //Generate a gallery of all the monster images. The gallery is hidden until selected.
   generateGallery();
 }
 
@@ -120,8 +120,6 @@ function download() {
 
 /**
  * Toggle between the monster and gallery view.
- * 
- * TODO Tidy this up. Too much copy and paste. Use array of IDs? Simply flip the visibility.
  */
 function toggleView(view) {
   if (view === "gallery") {
