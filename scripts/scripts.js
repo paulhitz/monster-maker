@@ -119,22 +119,34 @@ function download() {
 }
 
 /**
- * Toggle between the monster and gallery view.
+ * Toggle between the different views (e.g. Monster view, gallery etc.).
  */
 function toggleView(view) {
-  if (view === "gallery") {
-    //Hide the monster canvas and associated UI elements. Show the gallery elements.
-    document.getElementById("gallery").style.display = "block";
-    document.getElementById("back-button").style.display = "block";
-    document.getElementById("canvas").style.display = "none";
-    document.getElementById("reload-button").style.display = "none";
-    document.getElementById("option-buttons").style.display = "none";
-  } else {
-    document.getElementById("gallery").style.display = "none";
-    document.getElementById("back-button").style.display = "none";
-    document.getElementById("canvas").style.display = "block";
-    document.getElementById("reload-button").style.display = "block";
-    document.getElementById("option-buttons").style.display = "block";
+  switch (true) {
+    case view === "gallery":
+      document.getElementById("gallery").style.display = "block";
+      document.getElementById("back-button").style.display = "block";
+      document.getElementById("canvas").style.display = "none";
+      document.getElementById("create").style.display = "none";
+      document.getElementById("reload-button").style.display = "none";
+      document.getElementById("option-buttons").style.display = "none";
+      break;
+    case view === "create":
+      document.getElementById("gallery").style.display = "none";
+      document.getElementById("back-button").style.display = "block";
+      document.getElementById("canvas").style.display = "none";
+      document.getElementById("create").style.display = "block";
+      document.getElementById("reload-button").style.display = "none";
+      document.getElementById("option-buttons").style.display = "none";
+      break;
+    default:
+      //Display monster view.
+      document.getElementById("gallery").style.display = "none";
+      document.getElementById("back-button").style.display = "none";
+      document.getElementById("canvas").style.display = "block";
+      document.getElementById("create").style.display = "none";
+      document.getElementById("reload-button").style.display = "block";
+      document.getElementById("option-buttons").style.display = "block";
   }
 }
 

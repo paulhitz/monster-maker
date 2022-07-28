@@ -39,6 +39,11 @@
         <path d="M14.002 13a2 2 0 0 1-2 2h-10a2 2 0 0 1-2-2V5A2 2 0 0 1 2 3a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v8a2 2 0 0 1-1.998 2zM14 2H4a1 1 0 0 0-1 1h9.002a2 2 0 0 1 2 2v7A1 1 0 0 0 15 11V3a1 1 0 0 0-1-1zM2.002 4a1 1 0 0 0-1 1v8l2.646-2.354a.5.5 0 0 1 .63-.062l2.66 1.773 3.71-3.71a.5.5 0 0 1 .577-.094l1.777 1.947V5a1 1 0 0 0-1-1h-10z"/>
       </svg>
     </button>
+    <button id="create-button" type="button" class="btn btn-primary btn-lg" onclick="toggleView('create');" title="Create a Monster!">
+      <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-plus-lg" viewBox="0 0 16 16">
+        <path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2Z"/>
+      </svg>
+    </button>
   </div>
 
   <button id="back-button" type="button" class="btn btn-primary btn-lg fixed-header-button" onclick="toggleView('monster');" title="Back to the Monster!">
@@ -86,6 +91,45 @@ _#/|##########/\######(   /\   )######/\##########|\#_
 
   <div id="gallery">
     <h1>Monster Gallery</h1>
+  </div>
+
+  <div id="create">
+    <h1>Make a Monster!</h1>
+
+
+    <div class="card">
+      <div class="card-header">
+        Drawing Options
+      </div>
+      <div class="card-body">
+        <p class="card-text">Lorem ipsum dolar sumit.</p>
+        <form>
+          <div>
+            <label for="colour-select" class="form-label">Colour:</label>
+            <input id="colour-select" type="color" class="form-control form-control-color" value="#563d7c" title="Pick a Colour">
+          </div>
+          <div>
+          <label for="thickness-select" class="form-label">Line Thickness:</label>
+          <select id="thickness-select" class="form-select" size="4">
+            <option value="1">---------</option>
+            <option value="2" style="font-weight: bolder;">---------</option>
+            <option value="5">_________</option>
+            <option value="10" selected>========</option>
+            <option value="20">̶̶̶̶ ̶ ̶ ̶ ̶ ̶  ̶̶̶ ̶ ̶   ̶▬̶▬̶▬̶▬̶▬̶▬̶▬̶▬̶▬  ───────    </option>
+          </select>
+          </div>
+          <button type="reset" class="btn btn-danger">Clear Image</button>
+        </form>
+      </div>
+    </div>
+
+
+    <div id="canvas-template">
+      <canvas id="make-canvas" width="600" height="750">
+        <p>Unfortunately HTML Canvas is not supported in this browser.</p>
+      </canvas>
+    </div>
+    <p>TODO display saved images</p>
   </div>
 
 </body>

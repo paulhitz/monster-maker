@@ -26,7 +26,7 @@ span#page-title {
 #option-buttons {
   left: 8px;
 }
-#gallery-button {
+#gallery-button, #create-button {
   margin-left: 4px;
 }
 #back-button {
@@ -34,7 +34,7 @@ span#page-title {
   left: 8px;
 }
 
-canvas#canvas {
+canvas#canvas, canvas#make-canvas {
   max-width: 600px;
   width: 100%;
   height: 750px;
@@ -50,17 +50,38 @@ canvas div {
   margin-right: auto;
 }
 
-div#gallery {
+div#gallery, div#create {
   display: none;
   max-width: 700px;
   width: 90%;
   margin-left: auto;
   margin-right: auto;
 }
-div#gallery h1 {
+div#gallery h1, div#create h1 {
   text-align: center;
 }
 div#gallery img {
   width: 25%;
   cursor: pointer;
 }
+
+canvas#make-canvas {
+  border: gray 1px solid;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  /* background-color: white; */
+}
+#canvas-template {
+  background-image: url('../images/monster_template.png');
+  /* padding-left: 20px;
+  padding-right: 20px; */
+}
+
+#colour-select {
+  display: inline-block;
+}
+label {
+  font-weight: bold;
+}
+
+
