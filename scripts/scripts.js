@@ -45,7 +45,9 @@ function init() {
   //Initialise the editor canvas.
   let editorCanvas = document.getElementById('make-canvas');
   monsterEditor = new Editor(editorCanvas);
-  editorCanvas.addEventListener('mousemove', monsterEditor.draw());
+  editorCanvas.addEventListener('mousemove', function(e) { 
+    monsterEditor.draw(e);
+  });
 }
 
 /**

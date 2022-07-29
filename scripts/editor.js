@@ -32,8 +32,11 @@ class Editor {
   }
 
   draw(e) {
-    console.log("DRAW! = " + e);
-    this.ctx.lineTo(Math.floor((Math.random() * 900)), Math.floor((Math.random() * 900)));
+    // console.log("x = " + e.clientX + "and y =" + e.clientY);
+    // console.log("this.canvas.offsetLeft = " + this.canvas.offsetLeft);
+    // console.log("this.canvas.offsetTop = " + this.canvas.offsetTop);
+    //TODO offset won't work correctly if the user scrolls. Need alternative.
+    this.ctx.lineTo(e.clientX - this.canvas.offsetLeft, e.clientY - this.canvas.offsetTop);
     this.ctx.stroke();
   }
 
@@ -43,5 +46,15 @@ class Editor {
     this.ctx.stroke();
     this.ctx.beginPath();
   }
+
+/*
+TODO 
+-only paint when mouse clicked
+-solve offset issue
+-check form elements work
+
+
+*/
+
 
 }
