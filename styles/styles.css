@@ -69,6 +69,7 @@ canvas#make-canvas {
   border: gray 1px solid;
   margin-top: 20px;
   margin-bottom: 20px;
+  cursor: crosshair;
   /* background-color: white; */
 }
 #canvas-template {
@@ -77,11 +78,24 @@ canvas#make-canvas {
   padding-right: 20px; */
 }
 
-#colour-select {
+#brush-colour, #monster-upload {
   display: inline-block;
 }
-label {
-  font-weight: bold;
+#brush-width-2 ~ label {
+  text-decoration-thickness: 3px;
 }
-
-
+#brush-width-5 ~ label {
+  text-decoration-thickness: 5px;
+}
+#brush-width-10 ~ label {
+  text-decoration-thickness: 10px;
+}
+#brush-width-20 ~ label {
+  text-decoration-thickness: 20px;
+}
+.form-check-label {
+  text-decoration-line: line-through;
+}
+#monster-upload {
+  width: 50%;
+}

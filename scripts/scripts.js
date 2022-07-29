@@ -1,5 +1,6 @@
 const NUMBER_OF_IMAGES = 9;
 const SECTION_HEIGHT = 250;
+let monsterEditor;
 let canvas;
 let ctx;
 let images = [];
@@ -40,6 +41,11 @@ function init() {
 
   //Generate a gallery of all the monster images. The gallery is hidden until selected.
   generateGallery();
+
+  //Initialise the editor canvas.
+  let editorCanvas = document.getElementById('make-canvas');
+  monsterEditor = new Editor(editorCanvas);
+  editorCanvas.addEventListener('mousemove', monsterEditor.draw());
 }
 
 /**
