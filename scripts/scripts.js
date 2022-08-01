@@ -45,9 +45,7 @@ function init() {
   //Initialise the editor canvas.
   let editorCanvas = document.getElementById('make-canvas');
   monsterEditor = new Editor(editorCanvas);
-  editorCanvas.addEventListener('mousemove', function(e) { 
-    monsterEditor.draw(e);
-  });
+  addEditorListeners(editorCanvas);
 }
 
 /**
@@ -171,3 +169,40 @@ function generateGallery() {
     gallery.appendChild(images[i]);
   }
 }
+
+//
+function addEditorListeners(editorCanvas) {
+  editorCanvas.addEventListener('mousedown', function(e) {
+    monsterEditor.setDrawing(true);
+  });
+  editorCanvas.addEventListener('mouseup', function(e) {
+    monsterEditor.setDrawing(false);
+    monsterEditor.endDrawing();
+  });
+  editorCanvas.addEventListener('mouseout', function(e) {
+    monsterEditor.setDrawing(false);
+    monsterEditor.endDrawing();
+  });
+  editorCanvas.addEventListener('mousemove', function(e) {
+    e.preventDefault(); //Prevent normal browser processing of the event.
+    monsterEditor.draw(e);
+  });
+
+  editorCanvas.addEventListener('touchstart', function(e) {
+    monsterEditor.setDrawing(true);
+  });
+  editorCanvas.addEventListener('touchend', function(e) {
+    monsterEditor.setDrawing(false);
+    monsterEditor.endDrawing();
+  });
+  editorCanvas.addEventListener('touchcancel', function(e) {
+    monsterEditor.setDrawing(false);
+    monsterEditor.endDrawing();
+  });
+  editorCanvas.addEventListener('touchmove', function(e) {
+    e.preventDefault(); //Prevent normal browser processing of the event.
+    monsterEditor.drawTouch(e);
+  });
+  //TODO Can you add multiple listeners in a single call?
+}
+

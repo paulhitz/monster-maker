@@ -1,10 +1,14 @@
+/**
+ * 
+ */
 class Editor {
   canvas;
   ctx;
   brushColour = "#000000";
-  brushWidth = "2";
+  brushWidth = "5";
   xAxis = 0;
   yAxis = 0;
+  drawing = false;
 
   constructor(canvas) {
     this.canvas = canvas;
@@ -14,44 +18,60 @@ class Editor {
     this.ctx.strokeStyle = this.brushColour;
   }
 
-  foo(test) {
-    console.log("canvas height = " + canvas.height);
-    console.log("brushColour = " + this.brushColour);
-    console.log("brushWidth = " + this.brushWidth);
-  }
-
+  //TODO check the recommended method of using getters/setters in JS.
   setBrushColour(colour) {
     this.brushColour = colour;
     this.ctx.strokeStyle = colour;
   }
-
   setBrushWidth(width) {
     this.brushWidth = width;
     this.ctx.lineWidth = width;
-    console.log("brushWidth = " + this.brushWidth);
+  }
+  setDrawing(drawing) {
+    console.log("drawing = " + drawing);
+    this.drawing = drawing;
+  }
+  setXAxis(xAxis) {
+    this.xAxis = xAxis;
+  }
+  setYAxis(yAxis) {
+    this.yAxis = yAxis;
   }
 
   draw(e) {
-    // console.log("x = " + e.clientX + "and y =" + e.clientY);
-    // console.log("this.canvas.offsetLeft = " + this.canvas.offsetLeft);
-    // console.log("this.canvas.offsetTop = " + this.canvas.offsetTop);
+    
     //TODO offset won't work correctly if the user scrolls. Need alternative.
-    this.ctx.lineTo(e.clientX - this.canvas.offsetLeft, e.clientY - this.canvas.offsetTop);
-    this.ctx.stroke();
+    if (this.drawing) {
+      console.log(e);
+      console.log("Mouse DRAWING. pageX = " + e.pageX + "and pageY =" + e.pageY);
+      this.ctx.lineTo(e.pageX - this.canvas.offsetLeft, e.pageY - this.canvas.offsetTop);
+      this.ctx.stroke();
+    }
   }
 
-  foo2() {
+  //TODO combine this with the above function. if mouseevent if touchevent
+  drawTouch(touchEvent) {
+    
+    if (this.drawing) {
+      console.log(touchEvent);
+      const event = touchEvent.touches[0];
+      console.log("Touch DRAWING. x = " + event.pageX + "and y =" + event.pageY);
+      this.ctx.lineTo(event.pageX - this.canvas.offsetLeft, event.pageY - this.canvas.offsetTop);
+      this.ctx.stroke();
+    }
+  }
+
+  //
+  endDrawing() {
     //on mouseup.
-    console.log("in foo2");
     this.ctx.stroke();
     this.ctx.beginPath();
   }
 
 /*
 TODO 
--only paint when mouse clicked
--solve offset issue
--check form elements work
+-recommended way of using setters in JS?
+-tidy, tidy, tidy.
 
 
 */
