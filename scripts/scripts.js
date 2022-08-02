@@ -200,9 +200,17 @@ function addEditorListeners(editorCanvas) {
     monsterEditor.endDrawing();
   });
   editorCanvas.addEventListener('touchmove', function(e) {
-    e.preventDefault(); //Prevent normal browser processing of the event.
-    monsterEditor.drawTouch(e);
+    e.preventDefault(); //Prevent normal browser processing of the event. e.g. scrolling instead of drawing.
+    monsterEditor.draw(e.touches[0]);
   });
-  //TODO Can you add multiple listeners in a single call?
+  //TODO Can you add multiple listeners in a single call? use switch block?
+  //Add one for the line thickness also? (potentially avoiding messy duplication)
 }
+
+//TODO persist to localstorage and display below the canvas.
+function saveMonster() {
+  console.log("save monster");
+  alert("TODO save monster");
+}
+
 
