@@ -6,6 +6,7 @@ class Editor {
   ctx;
   drawing = false;
 
+  //Initialise and set defaults.
   constructor(canvas) {
     this.canvas = canvas;
     this.ctx = canvas.getContext('2d');
@@ -17,39 +18,32 @@ class Editor {
   setBrushColour(colour) {
     this.ctx.strokeStyle = colour;
   }
+
   setBrushWidth(width) {
     this.ctx.lineWidth = width;
   }
+
   setDrawing(drawing) {
     this.drawing = drawing;
+    if (drawing) {
+      this.ctx.beginPath();
+    }
   }
 
-  //
+  //Add the current mouse or touch co-ordinates to the current line (lineTo) and render it (stroke) immediately.
   draw(e) {
     if (this.drawing) {
-      //console.log(e);
-      this.ctx.lineTo(e.pageX - this.canvas.offsetLeft, e.pageY - this.canvas.offsetTop);
+      let event = e;
+      if (event.type === "touchmove") {
+        event = event.touches[0];
+      }
+      this.ctx.lineTo(event.pageX - this.canvas.offsetLeft, event.pageY - this.canvas.offsetTop);
       this.ctx.stroke();
     }
   }
 
-  //
-  endDrawing() {
-    //on mouseup.
-    this.ctx.stroke();
-    this.ctx.beginPath();
-  }
-
-  //
+  //Clear the entire canvas. Retains transparency.
   clear() {
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
   }
-
-/*
-TODO 
--tidy, tidy, tidy.
--add comments to this. done.
-*/
-
-
 }

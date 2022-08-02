@@ -170,41 +170,26 @@ function generateGallery() {
   }
 }
 
-//
+/**
+ * Add mouse and touch event listeners to the Editor canvas.
+ */
 function addEditorListeners(editorCanvas) {
-  editorCanvas.addEventListener('mousedown', function(e) {
-    monsterEditor.setDrawing(true);
+  ['mouseup', 'mouseout', 'touchend', 'touchcancel'].forEach(function(e) {
+    editorCanvas.addEventListener(e, function(event) {
+      monsterEditor.setDrawing(false);
+    });
   });
-  editorCanvas.addEventListener('mouseup', function(e) {
-    monsterEditor.setDrawing(false);
-    monsterEditor.endDrawing();
+  ['mousedown', 'touchstart'].forEach(function(e) {
+    editorCanvas.addEventListener(e, function(event) {
+      monsterEditor.setDrawing(true);
+    });
   });
-  editorCanvas.addEventListener('mouseout', function(e) {
-    monsterEditor.setDrawing(false);
-    monsterEditor.endDrawing();
+  ['mousemove', 'touchmove'].forEach(function(e) {
+    editorCanvas.addEventListener(e, function(event) {
+      event.preventDefault(); //Prevent normal browser processing of the event. e.g. scrolling instead of drawing.
+      monsterEditor.draw(event);
+    });
   });
-  editorCanvas.addEventListener('mousemove', function(e) {
-    e.preventDefault(); //Prevent normal browser processing of the event.
-    monsterEditor.draw(e);
-  });
-
-  editorCanvas.addEventListener('touchstart', function(e) {
-    monsterEditor.setDrawing(true);
-  });
-  editorCanvas.addEventListener('touchend', function(e) {
-    monsterEditor.setDrawing(false);
-    monsterEditor.endDrawing();
-  });
-  editorCanvas.addEventListener('touchcancel', function(e) {
-    monsterEditor.setDrawing(false);
-    monsterEditor.endDrawing();
-  });
-  editorCanvas.addEventListener('touchmove', function(e) {
-    e.preventDefault(); //Prevent normal browser processing of the event. e.g. scrolling instead of drawing.
-    monsterEditor.draw(e.touches[0]);
-  });
-  //TODO Can you add multiple listeners in a single call? use switch block?
-  //Add one for the line thickness also? (potentially avoiding messy duplication)
 }
 
 //TODO persist to localstorage and display below the canvas.
@@ -213,4 +198,7 @@ function saveMonster() {
   alert("TODO save monster");
 }
 
-
+function uploadMonster() {
+  console.log("upload monster");
+  alert("TODO upload monster");
+}
