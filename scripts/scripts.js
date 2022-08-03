@@ -195,10 +195,22 @@ function addEditorListeners(editorCanvas) {
 //TODO persist to localstorage and display below the canvas.
 function saveMonster() {
   console.log("save monster");
-  alert("TODO save monster");
+  //console.log(JSON.stringify(monsterCanvas));
+  localStorage.setItem("monsters." + Date.now(), monsterEditor.export());
+
+  //TODO disable button. Then re-enable. 
+  //"Your monster has been successfully saved."
+  //TODO consider also error scenarios. e.g. storage full etc.
 }
 
+//
 function uploadMonster() {
   console.log("upload monster");
-  alert("TODO upload monster");
+  //alert("TODO upload monster");
+  editMonster("test");
+}
+
+//
+function editMonster(id) {
+  monsterEditor.import(localStorage.getItem(id));
 }

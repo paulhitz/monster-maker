@@ -46,4 +46,42 @@ class Editor {
   clear() {
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
   }
+
+  //
+  export() {
+    //This generates a 20mb response.
+    //return this.ctx.getImageData(0, 0, this.canvas.width, this.canvas.height);
+
+    return this.canvas.toDataURL();
+
+  }
+
+  //
+  import(dataUrl) {
+    const img = new Image();
+    //TODO Why do we need to use a listener for a base64 encoded image? 
+    img.onload = function() {
+      ctx.drawImage(img, 0, 0); //TODO needs to use the correct ctx. Pass it in.
+    };
+    img.src = dataUrl;
+
+    // const img = new Image();
+    // img.src = dataUrl;
+    // this.ctx.drawImage(img, 0, 0);
+  }
+
+
 }
+
+/*
+TODO
+-solve ctx issue. 
+-confirm works reliably.
+-read some more.
+-tidy. hook up to the correct buttons.
+-add upload functionality
+-add gallery (from local storage) below canvas.
+-add delete functionality.
+-tidy the UI
+-fix line thickness mobile issue
+*/
