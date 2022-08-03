@@ -60,7 +60,7 @@ div#gallery, div#create {
 div#gallery h1, div#create h1 {
   text-align: center;
 }
-div#gallery img {
+div#gallery img, div#saved-monsters img {
   width: 25%;
   cursor: pointer;
 }

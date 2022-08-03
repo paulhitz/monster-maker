@@ -131,7 +131,11 @@ _#/|##########/\######(   /\   )######/\##########|\#_
 
             <div class="mb-3">
               <label for="monster-upload" class="form-label"><strong>Upload a Monster:</strong></label>
-              <input class="form-control" type="file" id="monster-upload">
+              <!-- <input class="form-control" type="file" id="monster-upload"> -->
+              <div class="input-group">
+                <input type="file" class="form-control" id="monster-upload" accept="image/png">
+                <button class="btn btn-primary" type="button" onclick="uploadMonster();">Upload</button>
+              </div>
             </div>
 
           </div>
@@ -151,9 +155,13 @@ _#/|##########/\######(   /\   )######/\##########|\#_
     <div class="d-grid gap-2 col-6 mx-auto">
       <button class="btn btn-danger" type="button" onclick="monsterEditor.clear();">Clear</button>
       <button class="btn btn-primary" type="button" onclick="saveMonster();">Save</button>
-      <button class="btn btn-primary" type="button" onclick="uploadMonster();">Upload</button>
+      <button class="btn btn-primary" type="button" onclick="editMonster('test');">Test</button>
     </div>
-    <p>TODO display saved images</p>
+    <div>
+      <h1>Saved Monsters</h1>
+      <p>Click on an image to display the saved monster. TODO handle scenario of no monsters. TODO apply some bootstrap layout to the below.</p>
+      <div id="saved-monsters"></div>
+    </div>
   </div>
 
 </body>

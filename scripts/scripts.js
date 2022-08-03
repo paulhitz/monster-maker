@@ -46,6 +46,7 @@ function init() {
   let editorCanvas = document.getElementById('make-canvas');
   monsterEditor = new Editor(editorCanvas);
   addEditorListeners(editorCanvas);
+  displaySavedMonsters();
 }
 
 /**
@@ -194,23 +195,79 @@ function addEditorListeners(editorCanvas) {
 
 //TODO persist to localstorage and display below the canvas.
 function saveMonster() {
-  console.log("save monster");
-  //console.log(JSON.stringify(monsterCanvas));
   localStorage.setItem("monsters." + Date.now(), monsterEditor.export());
+  alert("Your monster has been successfully saved.");
+  displaySavedMonsters();
 
-  //TODO disable button. Then re-enable. 
-  //"Your monster has been successfully saved."
+  //TODO disable save button. Then re-enable. Is it really needed if we use an alert?
   //TODO consider also error scenarios. e.g. storage full etc.
 }
 
 //
-function uploadMonster() {
-  console.log("upload monster");
-  //alert("TODO upload monster");
-  editMonster("test");
+function deleteMonster(id) {
+  let userConfirmed = confirm('Are you sure?');
+  if (userConfirmed) {
+    localStorage.removeItem(id); //TODO error handling?
+    alert("Monster deleted.");
+    displaySavedMonsters();
+  }
 }
 
-//
+/**
+ * 
+ */
+function uploadMonster() {
+  const files = (document.getElementById("monster-upload")).files;
+  if (files.length === 0) {
+    alert("No file selected. Please select a file.");
+  } else {
+    const file = files[0];
+    if (file.type === "image/png") {
+      monsterEditor.import(URL.createObjectURL(file));
+      alert("File Uploaded: " + file.name);
+    } 
+  }
+}
+
+/**
+ * 
+ */
 function editMonster(id) {
   monsterEditor.import(localStorage.getItem(id));
 }
+
+//
+function displaySavedMonsters() {
+  const savedMonsters = document.getElementById("saved-monsters");
+
+  //Remove the previous entries. TODO cleaner way of doing this?
+  while (savedMonsters.hasChildNodes()) {
+    savedMonsters.removeChild(savedMonsters.firstChild);
+  }
+
+  //
+  for (let i = 0; i < localStorage.length; i++) {
+    //TODO Extract the timestamp and sort by timestamp?
+    //TODO cleanest method of adding to the doc? 
+    const key = localStorage.key(i);
+    if (isValidKey(key)) {
+      const img = new Image();
+      img.src = localStorage.getItem(key);
+      img.onclick = function() {
+        editMonster(key);
+      }
+      savedMonsters.appendChild(img);
+      //TODO innerHTML removes listeners. Re-implement.
+      //savedMonsters.innerHTML += "<button class=\"btn btn-danger\" type=\"button\" onclick=\"deleteMonster('" + key + "');\">Delete</button>";
+    }
+  }
+}
+
+/**
+ * 
+ */
+function isValidKey(key) {
+  if (key.indexOf("monsters.") > -1) {
+    return true;
+  }
+};
