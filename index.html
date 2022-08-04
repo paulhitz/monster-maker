@@ -99,72 +99,58 @@ _#/|##########/\######(   /\   )######/\##########|\#_
     <h1>Make a Monster!</h1>
 
 
-    <div class="card">
-      <div class="card-header">
-        Drawing Options
-      </div>
-      <div class="card-body">
-        <p class="card-text">TODO This is a mess. Sort out the layout using bootstrap layouts. Be conscious of mobile viewports and the need to support touch.</p>
-        <form>
-          <div>
-            <label for="brush-colour" class="form-label"><strong>Colour:</strong></label>
-            <input id="brush-colour" type="color" class="form-control form-control-color" value="#000000" title="Pick a Colour" onchange="monsterEditor.setBrushColour(value);">
-          </div>
-          <div>
-            <label for="brush-width-5" class="form-label"><strong>Brush Width:</strong></label>
-
-            <div class="form-check form-check-inline">
-              <input class="form-check-input" type="radio" name="brushWidth" id="brush-width-2" value="2" onchange="monsterEditor.setBrushWidth(value);">
-              <label class="form-check-label" for="brush-width-2">----------</label>
-            </div>
-            <div class="form-check form-check-inline">
-              <input class="form-check-input" type="radio" name="brushWidth" id="brush-width-5" value="5" onchange="monsterEditor.setBrushWidth(value);" checked>
-              <label class="form-check-label" for="brush-width-5">----------</label>
-            </div>
-            <div class="form-check form-check-inline">
-              <input class="form-check-input" type="radio" name="brushWidth" id="brush-width-10" value="10" onchange="monsterEditor.setBrushWidth(value);">
-              <label class="form-check-label" for="brush-width-10">----------</label>
-            </div>
-            <div class="form-check form-check-inline">
-              <input class="form-check-input" type="radio" name="brushWidth" id="brush-width-20" value="20" onchange="monsterEditor.setBrushWidth(value);">
-              <label class="form-check-label" for="brush-width-20">----------</label>
-            </div>
-
-            <div class="mb-3">
-              <label for="monster-upload" class="form-label"><strong>Upload a Monster:</strong></label>
-              <!-- <input class="form-control" type="file" id="monster-upload"> -->
-              <div class="input-group">
-                <input type="file" class="form-control" id="monster-upload" accept="image/png">
-                <button class="btn btn-primary" type="button" onclick="uploadMonster();">Upload</button>
+    <div class="accordion">
+      <div class="accordion-item">
+        <h2 class="accordion-header">
+          <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#drawingOptions">
+            Drawing Options
+          </button>
+        </h2>
+        <div id="drawingOptions" class="accordion-collapse collapse show">
+          <div class="accordion-body">
+            <form class="row g-3">
+              <div class="col-md-2">
+                <label for="brush-colour" class="form-label">Colour:</label>
+                <input id="brush-colour" type="color" class="form-control form-control-color" value="#a739db" title="Pick a Colour" onchange="monsterEditor.setBrushColour(value);">
               </div>
-            </div>
-
+              <div class="col-md-10">
+                <label for="brush-width" class="form-label">Brush Width:</label>
+                <input type="range" class="form-range" min="1" max="20" id="brush-width" onchange="monsterEditor.setBrushWidth(value);">
+              </div>
+              <div class="col-12">
+                <label for="monster-upload" class="form-label">Upload a Monster (750x600px):</label>
+                <div class="input-group">
+                  <input type="file" class="form-control" id="monster-upload" accept="image/png">
+                  <button class="btn btn-primary" type="button" onclick="uploadMonster();">Upload</button>
+                </div>
+              </div>
+            </form>
           </div>
-
-          <!-- <button type="reset" class="btn btn-danger">Clear Image</button> -->
-        </form>
+        </div>
       </div>
     </div>
-    
-
 
     <div id="canvas-template">
       <canvas id="make-canvas" width="600" height="750">
         <p>Unfortunately HTML Canvas is not supported in this browser.</p>
       </canvas>
     </div>
-    <div class="d-grid gap-2 col-6 mx-auto">
-      <button class="btn btn-danger" type="button" onclick="monsterEditor.clear();">Clear</button>
-      <button class="btn btn-primary" type="button" onclick="saveMonster();">Save</button>
-      <button class="btn btn-primary" type="button" onclick="editMonster('test');">Test</button>
+    <div class="row g-3" id="editor-buttons">
+      <div class="col-md-6">
+        <button class="btn btn-danger" type="button" onclick="monsterEditor.clear();">Clear</button>
+      </div>
+      <div class="col-md-6">
+        <button class="btn btn-primary" type="button" onclick="saveMonster();">Save</button>
+      </div>
     </div>
     <div>
       <h1>Saved Monsters</h1>
-      <p>Click on an image to display the saved monster. TODO handle scenario of no monsters. TODO apply some bootstrap layout to the below.</p>
+      <p>Click on an image to display the saved monster.</p>
       <div id="saved-monsters"></div>
     </div>
   </div>
 
   <script src="scripts/notie.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
 </body>
 </html>

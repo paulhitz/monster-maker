@@ -70,16 +70,15 @@ canvas#make-canvas {
   margin-top: 20px;
   margin-bottom: 20px;
   cursor: crosshair;
-  /* background-color: white; */
+  min-width: 600px;
 }
 #canvas-template {
   background-image: url('../images/monster_template.png');
-  /* padding-left: 20px;
-  padding-right: 20px; */
+  min-width: 600px;
 }
 
-#brush-colour, #monster-upload {
-  display: inline-block;
+#brush-colour {
+  width: 100%;
 }
 #brush-width-2 ~ label {
   text-decoration-thickness: 3px;
@@ -98,4 +97,18 @@ canvas#make-canvas {
 }
 #monster-upload {
   width: 50%;
+}
+
+#editor-buttons {
+  max-width: 600px;
+  min-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+#editor-buttons button {
+  width: 100%;
+}
+
+.accordion-header button.accordion-button {
+  color: black;
 }

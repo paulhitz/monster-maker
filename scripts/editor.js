@@ -12,7 +12,8 @@ class Editor {
     this.ctx = canvas.getContext('2d');
     this.ctx.lineCap = 'round';
     this.ctx.imageSmoothingEnabled = true;
-    this.ctx.lineWidth = "5";
+    this.ctx.lineWidth = "10";
+    this.ctx.strokeStyle = "#a739db";
   }
 
   setBrushColour(colour) {

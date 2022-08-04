@@ -193,14 +193,19 @@ function addEditorListeners(editorCanvas) {
   });
 }
 
-//TODO persist to localstorage and display below the canvas.
+/**
+ * Save the current monster to localStorage.
+ * 
+ * TODO Consider disabling the save button to avoid multiple clicks.
+ */
 function saveMonster() {
-  localStorage.setItem("monsters.image." + Date.now(), monsterEditor.export());
-  notie.alert({ type: "success", position: "bottom", text: "Your monster has been successfully saved." });
-  displaySavedMonsters();
-
-  //TODO disable save button. Then re-enable. Is it really needed if we use an alert?
-  //TODO consider also error scenarios. e.g. storage full etc.
+  try {
+    localStorage.setItem("monsters.image." + Date.now(), monsterEditor.export());
+    notie.alert({ type: "success", position: "bottom", text: "Your monster has been successfully saved. You can view it in the gallery." });
+    displaySavedMonsters();
+  } catch(e) {
+    notie.alert({ type: "error", position: "bottom", text: "An error occurred while saving the monster." });
+  }
 }
 
 /**
@@ -209,7 +214,7 @@ function saveMonster() {
 function deleteMonster(id) {
   let userConfirmed = confirm('Are you sure?');
   if (userConfirmed) {
-    localStorage.removeItem(id); //TODO error handling?
+    localStorage.removeItem(id);
     notie.alert({ type: "success", position: "bottom", text: "Monster deleted." });
     displaySavedMonsters();
   }
@@ -221,7 +226,7 @@ function deleteMonster(id) {
 function uploadMonster() {
   const files = (document.getElementById("monster-upload")).files;
   if (files.length === 0) {
-    notie.alert({ type: "warning", position: "bottom", text: "No file selected. Please select a file." });
+    notie.alert({ type: "warning", position: "bottom", text: "No image selected. Please select an image to upload." });
   } else {
     const file = files[0];
     if (file.type === "image/png") {
@@ -238,7 +243,9 @@ function editMonster(id) {
   monsterEditor.import(localStorage.getItem(id));
 }
 
-//
+/**
+ * TODO reconsider this approcah. Combine with gallery view?
+ */
 function displaySavedMonsters() {
   const savedMonsters = document.getElementById("saved-monsters");
 
@@ -292,10 +299,9 @@ function isValidKey(key) {
 /*
 TODO
 -confirm works reliably.
--tidy. hook up to the correct buttons.
--add gallery (from local storage) below canvas. with delete button. And count?
--tidy the UI
--validate line thickness mobile issue
+-add a gallery (from local storage) below canvas. with delete button. And count? *****
 -does the upload work on mobiles? 
 -add settings to localstorage. Copy default images to local storage.
+-Integrate with existing monster (main and gallery) functionality. Move away from the default images.
+-Should you have both a saved monster section and a gallery? Combine them. Only refresh gallery when gallery view selected and localStorage modified. Gallery must therefore allow edit, delete and view. Add description text and counter.
 */
