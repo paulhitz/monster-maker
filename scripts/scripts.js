@@ -301,8 +301,6 @@ function isValidKey(key) {
 /*
 TODO
 -add a gallery (from local storage) below canvas. with delete button. And count? *****
--does the upload work on mobiles? 
--add settings to localstorage. Copy default images to local storage.
--Integrate with existing monster (main and gallery) functionality. Move away from the default images.
+-Integrate with existing monster (main and gallery) functionality. Move away from the default images. Add settings to localstorage. Copy default images to local storage.
 -Should you have both a saved monster section and a gallery? Combine them. Only refresh gallery when gallery view selected and localStorage modified. Gallery must therefore allow edit, delete and view. Add description text and counter.
 */
