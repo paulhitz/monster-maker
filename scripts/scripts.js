@@ -115,14 +115,21 @@ function drawMonster(myMonster) {
  * Download the current monster as a PNG.
  */
 function download() {
-  let userConfirmed = confirm('Download the current monster?');
-  if (userConfirmed) {
-    const dataURL = canvas.toDataURL();
-    const downloadLink = document.createElement('a');
-    downloadLink.href = dataURL;
-    downloadLink.download = "my_monster.png";
-    downloadLink.click();
-  }
+  notie.confirm({
+    text: 'Download the current monster?',
+    submitCallback: function () {
+      try {
+        const dataURL = canvas.toDataURL();
+        const downloadLink = document.createElement('a');
+        downloadLink.href = dataURL;
+        downloadLink.download = "my_monster.png";
+        downloadLink.click();
+        notie.alert({ type: "success", position: "bottom", text: "Downloading monster..." });
+      } catch(e) {
+        notie.alert({ type: "error", position: "bottom", text: "Failed to download monster :(" });
+      }
+    }
+  });
 }
 
 /**
@@ -137,8 +144,11 @@ function toggleView(view) {
       document.getElementById("create").style.display = "none";
       document.getElementById("reload-button").style.display = "none";
       document.getElementById("option-buttons").style.display = "none";
+      // if (galleryUpdated) {
+      //   //refresh the page
+      // }
       break;
-    case view === "create":
+    case view === "editor":
       document.getElementById("gallery").style.display = "none";
       document.getElementById("back-button").style.display = "block";
       document.getElementById("canvas").style.display = "none";
@@ -161,14 +171,36 @@ function toggleView(view) {
  * Generate a gallery of all the monster images.
  */
 function generateGallery() {
+  document.getElementById("gallery-preview").style.display = "none";
   let gallery = document.getElementById("gallery");
   for (let i = 0; i < images.length; i++) {
     images[i].onclick = function() {
-      drawSpecificMonster(i);
-      toggleView("monster");
+      // drawSpecificMonster(i);
+      // toggleView("monster");
+      displayGalleryPreview(i); //TODO need to use localStorage key?
     }
     gallery.appendChild(images[i]);
   }
+}
+
+/**
+ * Display the gallery preview area and configure it for the selected image.
+ * 
+ * TODO Need to replace the keys below with valid localStorage keys.
+ */
+function displayGalleryPreview(id) {
+  document.getElementById("gallery-preview").style.display = "block";
+  document.getElementById("preview-image").src = images[id].src;
+  document.getElementById("preview-view-button").onclick = function() {
+    drawSpecificMonster(id);
+    toggleView('monster');
+  };
+  document.getElementById("preview-edit-button").onclick = function() {
+    editMonster('monsters.image.1659603629924');
+  };
+  document.getElementById("preview-delete-button").onclick = function() {
+    deleteMonster('test');
+  };
 }
 
 /**
@@ -212,12 +244,15 @@ function saveMonster() {
  * Delete the specified monster from localStorage and from the UI.
  */
 function deleteMonster(id) {
-  let userConfirmed = confirm('Are you sure?');
-  if (userConfirmed) {
-    localStorage.removeItem(id);
-    notie.alert({ type: "success", position: "bottom", text: "Monster deleted." });
-    displaySavedMonsters();
-  }
+  notie.confirm({
+    text: 'Are you sure?',
+    submitCallback: function() {
+      localStorage.removeItem(id);
+      //TODO also remove it from the javascript array.
+      generateGallery();
+      notie.alert({ type: "success", position: "bottom", text: "Success! The monster decided to go home..." });
+    }
+  });
 }
 
 /**
@@ -243,6 +278,7 @@ function uploadMonster() {
  */
 function editMonster(id) {
   monsterEditor.import(localStorage.getItem(id));
+  toggleView("editor");
 }
 
 /**
@@ -300,7 +336,10 @@ function isValidKey(key) {
 
 /*
 TODO
--add a gallery (from local storage) below canvas. with delete button. And count? *****
 -Integrate with existing monster (main and gallery) functionality. Move away from the default images. Add settings to localstorage. Copy default images to local storage.
--Should you have both a saved monster section and a gallery? Combine them. Only refresh gallery when gallery view selected and localStorage modified. Gallery must therefore allow edit, delete and view. Add description text and counter.
+
+-Sort out what to do with the default images. consider options. toggle for them? add to localstorage? delete them? handle them seamlessly behind the scenes (some images from localstorage, some from directory with fake delete)? Handle them seamlessly is the way to go.
+
+-Only refresh gallery when gallery view selected and localStorage modified?
+
 */

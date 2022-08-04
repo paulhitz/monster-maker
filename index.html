@@ -41,7 +41,7 @@
         <path d="M14.002 13a2 2 0 0 1-2 2h-10a2 2 0 0 1-2-2V5A2 2 0 0 1 2 3a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v8a2 2 0 0 1-1.998 2zM14 2H4a1 1 0 0 0-1 1h9.002a2 2 0 0 1 2 2v7A1 1 0 0 0 15 11V3a1 1 0 0 0-1-1zM2.002 4a1 1 0 0 0-1 1v8l2.646-2.354a.5.5 0 0 1 .63-.062l2.66 1.773 3.71-3.71a.5.5 0 0 1 .577-.094l1.777 1.947V5a1 1 0 0 0-1-1h-10z"/>
       </svg>
     </button>
-    <button id="create-button" type="button" class="btn btn-primary btn-lg" onclick="toggleView('create');" title="Create a Monster!">
+    <button id="create-button" type="button" class="btn btn-primary btn-lg" onclick="toggleView('editor');" title="Create a Monster!">
       <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-plus-lg" viewBox="0 0 16 16">
         <path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2Z"/>
       </svg>
@@ -93,17 +93,17 @@ _#/|##########/\######(   /\   )######/\##########|\#_
 
   <div id="gallery">
     <h1>Monster Gallery</h1>
-    <div class="card mb-3">
+    <div class="card mb-3" id="gallery-preview">
       <div class="row g-0">
-        <div class="col-md-6" style="background-color: #ccc;">
-          <img src="images/monsters/0.png" class="img-fluid rounded-start" alt="The currently selected image." style="width: 100%;">
+        <div class="col-md-6" style="background-color: #ddd;">
+          <img src="images/monsters/0.png" class="img-fluid rounded-start" alt="The currently selected image." id="preview-image">
         </div>
         <div class="col-md-6 d-flex align-items-center">
           <div class="card-body">
-            <div class="d-grid gap-5 col-10 mx-auto">
-              <button class="btn btn-primary" type="button">View</button>
-              <button class="btn btn-primary" type="button">Edit</button>
-              <button class="btn btn-danger" type="button">Delete</button>
+            <div class="d-grid col-10 mx-auto">
+              <button class="btn btn-primary btn-lg" type="button" id="preview-view-button">View</button>
+              <button class="btn btn-primary btn-lg" type="button" id="preview-edit-button">Edit</button>
+              <button class="btn btn-danger btn-lg" type="button" id="preview-delete-button">Delete</button>
             </div>
           </div>
         </div>
@@ -130,7 +130,7 @@ _#/|##########/\######(   /\   )######/\##########|\#_
                 <input type="range" class="form-range" min="1" max="20" id="brush-width" onchange="monsterEditor.setBrushWidth(value);">
               </div>
               <div class="col-12">
-                <label for="monster-upload" class="form-label">Upload a Monster (750x600px):</label>
+                <label for="monster-upload" class="form-label">Upload a Monster: (600x750px)</label>
                 <div class="input-group">
                   <input type="file" class="form-control" id="monster-upload" accept="image/png, image/jpeg">
                   <button class="btn btn-primary" type="button" onclick="uploadMonster();">Upload</button>

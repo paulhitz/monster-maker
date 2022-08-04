@@ -18,7 +18,7 @@ span#page-title {
 .fixed-header-button {
   position: fixed;
   top: 8px;
-  z-index: 1000;
+  z-index: 1;
 }
 #reload-button {
   right: 8px;
@@ -63,6 +63,23 @@ div#gallery h1, div#create h1 {
 div#gallery img, div#saved-monsters img {
   width: 25%;
   cursor: pointer;
+}
+#gallery-preview {
+  display: none;
+}
+div#gallery-preview img#preview-image {
+  width: 100%;
+  cursor: default;
+}
+#gallery-preview #preview-edit-button {
+  margin-top: 60px;
+  margin-bottom: 60px;
+}
+@media screen and (max-width: 767px) {
+  #gallery-preview #preview-edit-button {
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
 }
 
 canvas#make-canvas {
