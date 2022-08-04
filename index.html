@@ -97,14 +97,10 @@ _#/|##########/\######(   /\   )######/\##########|\#_
 
   <div id="create">
     <h1>Make a Monster!</h1>
-
-
     <div class="accordion">
       <div class="accordion-item">
         <h2 class="accordion-header">
-          <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#drawingOptions">
-            Drawing Options
-          </button>
+          <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#drawingOptions">Drawing Options</button>
         </h2>
         <div id="drawingOptions" class="accordion-collapse collapse show">
           <div class="accordion-body">
@@ -120,7 +116,7 @@ _#/|##########/\######(   /\   )######/\##########|\#_
               <div class="col-12">
                 <label for="monster-upload" class="form-label">Upload a Monster (750x600px):</label>
                 <div class="input-group">
-                  <input type="file" class="form-control" id="monster-upload" accept="image/png">
+                  <input type="file" class="form-control" id="monster-upload" accept="image/png, image/jpeg">
                   <button class="btn btn-primary" type="button" onclick="uploadMonster();">Upload</button>
                 </div>
               </div>
@@ -129,7 +125,6 @@ _#/|##########/\######(   /\   )######/\##########|\#_
         </div>
       </div>
     </div>
-
     <div id="canvas-template">
       <canvas id="make-canvas" width="600" height="750">
         <p>Unfortunately HTML Canvas is not supported in this browser.</p>

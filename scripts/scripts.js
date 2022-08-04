@@ -229,10 +229,12 @@ function uploadMonster() {
     notie.alert({ type: "warning", position: "bottom", text: "No image selected. Please select an image to upload." });
   } else {
     const file = files[0];
-    if (file.type === "image/png") {
+    if (file.type === "image/png" || file.type === "image/jpeg") {
       monsterEditor.import(URL.createObjectURL(file));
       notie.alert({ type: "success", position: "bottom", text: "Monster Uploaded: " + file.name });
-    } 
+    } else {
+      notie.alert({ type: "error", position: "bottom", text: "This is an invalid file type (" + file.type + "). Please select an image of type PNG or JPEG." });
+    }
   }
 }
 
@@ -298,7 +300,6 @@ function isValidKey(key) {
 
 /*
 TODO
--confirm works reliably.
 -add a gallery (from local storage) below canvas. with delete button. And count? *****
 -does the upload work on mobiles? 
 -add settings to localstorage. Copy default images to local storage.

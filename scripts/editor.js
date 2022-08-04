@@ -53,8 +53,9 @@ class Editor {
     return this.canvas.toDataURL();
   }
 
-  //Add the provided image to the canvas. It doesn't clear the canvas first.
+  //Add the provided image to the canvas.
   import(dataUrl) {
+    this.clear();
     const img = new Image();
     img.onload = () => {
       this.ctx.drawImage(img, 0, 0);
