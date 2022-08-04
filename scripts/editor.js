@@ -62,13 +62,3 @@ class Editor {
   }
 
 }
-
-/*
-TODO
--confirm works reliably.
--tidy. hook up to the correct buttons.
--add gallery (from local storage) below canvas. with delete button. And count?
--tidy the UI
--validate line thickness mobile issue
--use toaster lib and replace all the alert dialogs.
-*/

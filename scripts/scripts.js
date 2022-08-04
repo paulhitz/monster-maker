@@ -195,42 +195,44 @@ function addEditorListeners(editorCanvas) {
 
 //TODO persist to localstorage and display below the canvas.
 function saveMonster() {
-  localStorage.setItem("monsters." + Date.now(), monsterEditor.export());
-  alert("Your monster has been successfully saved.");
+  localStorage.setItem("monsters.image." + Date.now(), monsterEditor.export());
+  notie.alert({ type: "success", position: "bottom", text: "Your monster has been successfully saved." });
   displaySavedMonsters();
 
   //TODO disable save button. Then re-enable. Is it really needed if we use an alert?
   //TODO consider also error scenarios. e.g. storage full etc.
 }
 
-//
+/**
+ * Delete the specified monster from localStorage and from the UI.
+ */
 function deleteMonster(id) {
   let userConfirmed = confirm('Are you sure?');
   if (userConfirmed) {
     localStorage.removeItem(id); //TODO error handling?
-    alert("Monster deleted.");
+    notie.alert({ type: "success", position: "bottom", text: "Monster deleted." });
     displaySavedMonsters();
   }
 }
 
 /**
- * 
+ * Allow the user to upload an image and add it to the editor canvas.
  */
 function uploadMonster() {
   const files = (document.getElementById("monster-upload")).files;
   if (files.length === 0) {
-    alert("No file selected. Please select a file.");
+    notie.alert({ type: "warning", position: "bottom", text: "No file selected. Please select a file." });
   } else {
     const file = files[0];
     if (file.type === "image/png") {
       monsterEditor.import(URL.createObjectURL(file));
-      alert("File Uploaded: " + file.name);
+      notie.alert({ type: "success", position: "bottom", text: "Monster Uploaded: " + file.name });
     } 
   }
 }
 
 /**
- * 
+ * Add the monster with the specified ID to the editor canvas.
  */
 function editMonster(id) {
   monsterEditor.import(localStorage.getItem(id));
@@ -264,10 +266,36 @@ function displaySavedMonsters() {
 }
 
 /**
- * 
+ * Check if the supplied key matches the expected format.
  */
 function isValidKey(key) {
-  if (key.indexOf("monsters.") > -1) {
+  if (key.indexOf("monsters.image") > -1) {
     return true;
   }
 };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+TODO
+-confirm works reliably.
+-tidy. hook up to the correct buttons.
+-add gallery (from local storage) below canvas. with delete button. And count?
+-tidy the UI
+-validate line thickness mobile issue
+-does the upload work on mobiles? 
+-add settings to localstorage. Copy default images to local storage.
+*/
