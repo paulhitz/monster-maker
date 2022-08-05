@@ -121,6 +121,7 @@ canvas#make-canvas {
   min-width: 600px;
   margin-left: auto;
   margin-right: auto;
+  margin-bottom: 20px;
 }
 #editor-buttons button {
   width: 100%;

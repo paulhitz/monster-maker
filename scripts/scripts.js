@@ -1,4 +1,4 @@
-const NUMBER_OF_IMAGES = 11;
+const NUMBER_OF_EXAMPLES = 11;
 const SECTION_HEIGHT = 250;
 let monsterEditor;
 let canvas;
@@ -50,24 +50,17 @@ function init() {
 
 /**
  * Pre-load images so they can be rendered on the canvas.
- * 
- * TODO lots of duplication here. refactor.
  */
 function loadImages(callback) {
   //First add the example images. (stored on the server)
   let loadedImages = 0;
-  for (let i = 0; i < NUMBER_OF_IMAGES; i++) {
-    const img = new Image();
-    img.id = i;
-    img.src = `images/monsters/${i}.png`;
+  for (let i = 0; i < NUMBER_OF_EXAMPLES; i++) {
+    const img = createImage(i, `images/monsters/${i}.png`);
     img.onload = function() {
-      if(++loadedImages >= NUMBER_OF_IMAGES) {
+      if(++loadedImages >= NUMBER_OF_EXAMPLES) {
           callback();
       }
     };
-    img.onclick = function() {
-      displayGalleryPreview(img);
-    }
     images[i] = img;
   }
 
@@ -76,13 +69,6 @@ function loadImages(callback) {
     const key = localStorage.key(i);
     if (isValidKey(key)) {
       images.push(createImage(key));
-      // const img = new Image();
-      // img.id = key;
-      // img.src = localStorage.getItem(key);
-      // img.onclick = function() {
-      //   displayGalleryPreview(key);
-      // }
-      // images.push(img);
     }
   }
 }
@@ -202,6 +188,8 @@ function generateGallery() {
 
 /**
  * Display the gallery preview area and configure it for the selected image.
+ * 
+ * TODO scroll to the top of the page?
  */
 function displayGalleryPreview(img) {
   const index = images.indexOf(img);
@@ -258,6 +246,7 @@ function saveMonster() {
     //Add it to the images array and the gallery.
     images.push(createImage(key, src));
     generateGallery();
+
   } catch(e) {
     console.log(e);
     notie.alert({ type: "error", position: "bottom", text: "An error occurred while saving the monster." });
