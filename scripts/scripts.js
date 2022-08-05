@@ -46,32 +46,45 @@ function init() {
   let editorCanvas = document.getElementById('make-canvas');
   monsterEditor = new Editor(editorCanvas);
   addEditorListeners(editorCanvas);
-  displaySavedMonsters();
 }
 
 /**
  * Pre-load images so they can be rendered on the canvas.
+ * 
+ * TODO lots of duplication here. refactor.
  */
 function loadImages(callback) {
+  //First add the example images. (stored on the server)
   let loadedImages = 0;
   for (let i = 0; i < NUMBER_OF_IMAGES; i++) {
     const img = new Image();
+    img.id = i;
     img.src = `images/monsters/${i}.png`;
     img.onload = function() {
       if(++loadedImages >= NUMBER_OF_IMAGES) {
           callback();
       }
     };
+    img.onclick = function() {
+      displayGalleryPreview(img);
+    }
     images[i] = img;
   }
-}
 
-/**
- * Return a random entry from the supplied array.
- */
-function randomImage(images) {
-  let randomNumber = Math.floor((Math.random() * images.length));
-  return images[randomNumber];
+  //Add the images in localStorage (if any).
+  for (let i = 0; i < localStorage.length; i++) {
+    const key = localStorage.key(i);
+    if (isValidKey(key)) {
+      images.push(createImage(key));
+      // const img = new Image();
+      // img.id = key;
+      // img.src = localStorage.getItem(key);
+      // img.onclick = function() {
+      //   displayGalleryPreview(key);
+      // }
+      // images.push(img);
+    }
+  }
 }
 
 /**
@@ -126,6 +139,7 @@ function download() {
         downloadLink.click();
         notie.alert({ type: "success", position: "bottom", text: "Downloading monster..." });
       } catch(e) {
+        console.log(e);
         notie.alert({ type: "error", position: "bottom", text: "Failed to download monster :(" });
       }
     }
@@ -144,6 +158,7 @@ function toggleView(view) {
       document.getElementById("create").style.display = "none";
       document.getElementById("reload-button").style.display = "none";
       document.getElementById("option-buttons").style.display = "none";
+      //TODO Rather than all the generateGallery calls everywhere, should we just do it here?
       // if (galleryUpdated) {
       //   //refresh the page
       // }
@@ -172,34 +187,36 @@ function toggleView(view) {
  */
 function generateGallery() {
   document.getElementById("gallery-preview").style.display = "none";
-  let gallery = document.getElementById("gallery");
-  for (let i = 0; i < images.length; i++) {
-    images[i].onclick = function() {
-      // drawSpecificMonster(i);
-      // toggleView("monster");
-      displayGalleryPreview(i); //TODO need to use localStorage key?
-    }
-    gallery.appendChild(images[i]);
+
+  //Remove any previous images since they may have been deleted.
+  let gallery = document.getElementById("gallery-images");
+  while (gallery.hasChildNodes()) {
+    gallery.removeChild(gallery.firstChild);
+  }
+
+  //Add each image.
+  for (const image of images) {
+    gallery.appendChild(image);
   }
 }
 
 /**
  * Display the gallery preview area and configure it for the selected image.
- * 
- * TODO Need to replace the keys below with valid localStorage keys.
  */
-function displayGalleryPreview(id) {
+function displayGalleryPreview(img) {
+  const index = images.indexOf(img);
+
   document.getElementById("gallery-preview").style.display = "block";
-  document.getElementById("preview-image").src = images[id].src;
+  document.getElementById("preview-image").src = img.src;
   document.getElementById("preview-view-button").onclick = function() {
-    drawSpecificMonster(id);
+    drawSpecificMonster(index);
     toggleView('monster');
   };
   document.getElementById("preview-edit-button").onclick = function() {
-    editMonster('monsters.image.1659603629924');
+    editMonster(img.id);
   };
   document.getElementById("preview-delete-button").onclick = function() {
-    deleteMonster('test');
+    deleteMonster(img.id);
   };
 }
 
@@ -232,23 +249,32 @@ function addEditorListeners(editorCanvas) {
  */
 function saveMonster() {
   try {
-    localStorage.setItem("monsters.image." + Date.now(), monsterEditor.export());
+    //Generate a key and save the image.
+    const key = "monsters.image." + Date.now();
+    const src = monsterEditor.export();
+    localStorage.setItem(key, src);
     notie.alert({ type: "success", position: "bottom", text: "Your monster has been successfully saved. You can view it in the gallery." });
-    displaySavedMonsters();
+
+    //Add it to the images array and the gallery.
+    images.push(createImage(key, src));
+    generateGallery();
   } catch(e) {
+    console.log(e);
     notie.alert({ type: "error", position: "bottom", text: "An error occurred while saving the monster." });
   }
 }
 
 /**
  * Delete the specified monster from localStorage and from the UI.
+ * 
+ * TODO permanently handle deleted example images. Use localStorage? monsters.settings
  */
 function deleteMonster(id) {
   notie.confirm({
     text: 'Are you sure?',
     submitCallback: function() {
       localStorage.removeItem(id);
-      //TODO also remove it from the javascript array.
+      images.splice(findArrayIndex(id, images), 1);
       generateGallery();
       notie.alert({ type: "success", position: "bottom", text: "Success! The monster decided to go home..." });
     }
@@ -277,54 +303,64 @@ function uploadMonster() {
  * Add the monster with the specified ID to the editor canvas.
  */
 function editMonster(id) {
-  monsterEditor.import(localStorage.getItem(id));
+  if (isValidKey(id)) {
+    monsterEditor.import(localStorage.getItem(id));
+  } else {
+    const img = images[findArrayIndex(id, images)];
+    monsterEditor.import(img.src);
+  }
   toggleView("editor");
 }
 
-/**
- * TODO reconsider this approcah. Combine with gallery view?
+
+
+/*
+ * Various helper functions 
  */
-function displaySavedMonsters() {
-  const savedMonsters = document.getElementById("saved-monsters");
 
-  //Remove the previous entries. TODO cleaner way of doing this?
-  while (savedMonsters.hasChildNodes()) {
-    savedMonsters.removeChild(savedMonsters.firstChild);
-  }
 
-  //
-  for (let i = 0; i < localStorage.length; i++) {
-    //TODO Extract the timestamp and sort by timestamp?
-    //TODO cleanest method of adding to the doc? 
-    const key = localStorage.key(i);
-    if (isValidKey(key)) {
-      const img = new Image();
-      img.src = localStorage.getItem(key);
-      img.onclick = function() {
-        editMonster(key);
-      }
-      savedMonsters.appendChild(img);
-      //TODO innerHTML removes listeners. Re-implement.
-      //savedMonsters.innerHTML += "<button class=\"btn btn-danger\" type=\"button\" onclick=\"deleteMonster('" + key + "');\">Delete</button>";
-    }
-  }
+/**
+ * Return a random entry from the supplied array.
+ */
+ function randomImage(images) {
+  let randomNumber = Math.floor((Math.random() * images.length));
+  return images[randomNumber];
 }
 
 /**
  * Check if the supplied key matches the expected format.
  */
-function isValidKey(key) {
+ function isValidKey(key) {
   if (key.indexOf("monsters.image") > -1) {
     return true;
   }
-};
+}
 
+//Given an array and an ID, find the array index that matches that ID.
+function findArrayIndex(id, arr) {
+  for (let i = 0; i < arr.length; i++) {
+    if (arr[i].id === id) {
+      return i;
+    }
+  }
+}
 
-
-
-
-
-
+//
+function createImage(key, src) {
+  //If src is null then use the key to retrieve from localStorage.
+  //if (isValidKey(key)) {
+  if (src == null) {
+    src = localStorage.getItem(key);
+  }
+    
+  const img = new Image();
+  img.id = key;
+  img.src = src;
+  img.onclick = function() {
+    displayGalleryPreview(img);
+  }
+  return img;
+}
 
 
 
