@@ -21,7 +21,7 @@ function init() {
   //When all images have loaded, render a random monster.
   if (images.length == 0) {
     loadImages(function() {
-      drawRandomMonster();
+      drawRandomMonster(); //TODO bug here. This will never get called if all the example images have been deleted. Re-write to include the localStorage images and handle no images.
     });
   } else {
     drawRandomMonster();
@@ -98,13 +98,18 @@ function drawRandomMonster() {
  * than specifying it here.
  */
 function drawMonster(myMonster) {
-  monster = myMonster;
-
   ctx.clearRect(0, 0, canvas.width, canvas.height);
-  ctx.drawImage(myMonster.head, 0, 0, canvas.width, SECTION_HEIGHT, 0, 0, canvas.width, SECTION_HEIGHT);
-  ctx.drawImage(myMonster.torso, 0, SECTION_HEIGHT, canvas.width, SECTION_HEIGHT, 0, SECTION_HEIGHT, canvas.width, SECTION_HEIGHT);
-  ctx.drawImage(myMonster.legs, 0, SECTION_HEIGHT * 2, canvas.width, SECTION_HEIGHT, 0, SECTION_HEIGHT * 2, canvas.width, SECTION_HEIGHT);
-  //Reference: drawImage(image, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight)
+  if (myMonster == null || myMonster.head == null
+    || myMonster.torso == null || myMonster.legs == null) {
+    document.getElementById("no-monster-error").style.display = "block";
+  } else {
+    document.getElementById("no-monster-error").style.display = "none";
+    monster = myMonster;
+    ctx.drawImage(myMonster.head, 0, 0, canvas.width, SECTION_HEIGHT, 0, 0, canvas.width, SECTION_HEIGHT);
+    ctx.drawImage(myMonster.torso, 0, SECTION_HEIGHT, canvas.width, SECTION_HEIGHT, 0, SECTION_HEIGHT, canvas.width, SECTION_HEIGHT);
+    ctx.drawImage(myMonster.legs, 0, SECTION_HEIGHT * 2, canvas.width, SECTION_HEIGHT, 0, SECTION_HEIGHT * 2, canvas.width, SECTION_HEIGHT);
+    //Reference: drawImage(image, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight)
+  }
 }
 
 /**

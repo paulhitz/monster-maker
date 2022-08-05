@@ -130,3 +130,9 @@ canvas#make-canvas {
 .accordion-header button.accordion-button {
   color: black;
 }
+
+#no-monster-error {
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
