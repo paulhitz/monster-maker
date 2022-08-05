@@ -62,5 +62,4 @@ class Editor {
     };
     img.src = dataUrl;
   }
-
 }
