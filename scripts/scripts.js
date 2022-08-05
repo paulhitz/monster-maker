@@ -28,7 +28,7 @@ function init() {
   }
 
   //Add an event listener to the canvas.
-  addMonsterListeners(canvas);
+  addMonsterListeners();
   ctx = canvas.getContext('2d');
 
   //Generate a gallery of all the monster images. The gallery is hidden until selected.
@@ -202,7 +202,7 @@ function displayGalleryPreview(img) {
  * Add a listener to the main monster canvas. The listener allows the
  * user to load individual monster parts.
  */
-function addMonsterListeners(canvas) {
+function addMonsterListeners() {
   if (canvas == null) {
     canvas = document.getElementById('canvas');
     canvas.addEventListener('mousedown', e => {
