@@ -1,4 +1,8 @@
 
+/**
+ * Header styles.
+ */
+
 nav {
   margin-bottom: 10px;
 }
@@ -9,16 +13,21 @@ span#page-title {
 }
 
 /* Extra Small (E.g. Portrait Phones) */
-@media screen and (max-width: 500px) {
+@media screen and (max-width: 700px) {
   span#page-title {
       padding-left: 75px;
+  }
+}
+@media screen and (max-width: 550px) {
+  #download-button {
+    display: none;
   }
 }
 
 .fixed-header-button {
   position: fixed;
   top: 8px;
-  z-index: 1000;
+  z-index: 1;
 }
 #reload-button {
   right: 8px;
@@ -26,7 +35,7 @@ span#page-title {
 #option-buttons {
   left: 8px;
 }
-#gallery-button {
+#gallery-button, #create-button {
   margin-left: 4px;
 }
 #back-button {
@@ -34,7 +43,19 @@ span#page-title {
   left: 8px;
 }
 
-canvas#canvas {
+
+/**
+ * Main monster page styles.
+ */
+
+#no-monster-error {
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+  display: none;
+}
+
+canvas#canvas, canvas#make-canvas {
   max-width: 600px;
   width: 100%;
   height: 750px;
@@ -43,24 +64,79 @@ canvas#canvas {
   display: block;
   cursor: pointer;
 }
-
-canvas div {
+canvas#canvas div {
   width: 450px;
   margin-left: auto;
   margin-right: auto;
 }
 
-div#gallery {
+
+/**
+ * Monster gallery styles.
+ */
+
+div#gallery, div#create {
   display: none;
   max-width: 700px;
   width: 90%;
   margin-left: auto;
   margin-right: auto;
 }
-div#gallery h1 {
+div#gallery h1, div#create h1 {
   text-align: center;
 }
-div#gallery img {
+div#gallery img, div#saved-monsters img {
   width: 25%;
   cursor: pointer;
 }
+#gallery-preview {
+  display: none;
+}
+div#gallery-preview img#preview-image {
+  width: 100%;
+  cursor: default;
+}
+#gallery-preview #preview-edit-button {
+  margin-top: 60px;
+  margin-bottom: 60px;
+}
+@media screen and (max-width: 767px) {
+  #gallery-preview #preview-edit-button {
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+}
+
+
+/**
+ * Editor page styles.
+ */
+
+canvas#make-canvas {
+  border: gray 1px solid;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  cursor: crosshair;
+  min-width: 600px;
+}
+#canvas-template {
+  background-image: url('../images/monster_template.png');
+  min-width: 600px;
+}
+#brush-colour {
+  width: 100%;
+}
+#editor-buttons {
+  max-width: 600px;
+  min-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 20px;
+}
+#editor-buttons button {
+  width: 100%;
+}
+.accordion-header button.accordion-button {
+  color: black;
+}
+
