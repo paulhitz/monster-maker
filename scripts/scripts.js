@@ -1,4 +1,4 @@
-const NUMBER_OF_EXAMPLES = 11;
+const NUMBER_OF_EXAMPLES = 10;
 const SECTION_HEIGHT = 250;
 let monsterEditor;
 let canvas;
