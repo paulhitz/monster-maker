@@ -1,4 +1,8 @@
 
+/**
+ * Header styles.
+ */
+
 nav {
   margin-bottom: 10px;
 }
@@ -9,9 +13,14 @@ span#page-title {
 }
 
 /* Extra Small (E.g. Portrait Phones) */
-@media screen and (max-width: 500px) {
+@media screen and (max-width: 700px) {
   span#page-title {
       padding-left: 75px;
+  }
+}
+@media screen and (max-width: 550px) {
+  #download-button {
+    display: none;
   }
 }
 
@@ -34,6 +43,18 @@ span#page-title {
   left: 8px;
 }
 
+
+/**
+ * Main monster page styles.
+ */
+
+#no-monster-error {
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+  display: none;
+}
+
 canvas#canvas, canvas#make-canvas {
   max-width: 600px;
   width: 100%;
@@ -43,12 +64,16 @@ canvas#canvas, canvas#make-canvas {
   display: block;
   cursor: pointer;
 }
-
-canvas div {
+canvas#canvas div {
   width: 450px;
   margin-left: auto;
   margin-right: auto;
 }
+
+
+/**
+ * Monster gallery styles.
+ */
 
 div#gallery, div#create {
   display: none;
@@ -82,6 +107,11 @@ div#gallery-preview img#preview-image {
   }
 }
 
+
+/**
+ * Editor page styles.
+ */
+
 canvas#make-canvas {
   border: gray 1px solid;
   margin-top: 20px;
@@ -93,29 +123,9 @@ canvas#make-canvas {
   background-image: url('../images/monster_template.png');
   min-width: 600px;
 }
-
 #brush-colour {
   width: 100%;
 }
-#brush-width-2 ~ label {
-  text-decoration-thickness: 3px;
-}
-#brush-width-5 ~ label {
-  text-decoration-thickness: 5px;
-}
-#brush-width-10 ~ label {
-  text-decoration-thickness: 10px;
-}
-#brush-width-20 ~ label {
-  text-decoration-thickness: 20px;
-}
-.form-check-label {
-  text-decoration-line: line-through;
-}
-#monster-upload {
-  width: 50%;
-}
-
 #editor-buttons {
   max-width: 600px;
   min-width: 600px;
@@ -126,13 +136,7 @@ canvas#make-canvas {
 #editor-buttons button {
   width: 100%;
 }
-
 .accordion-header button.accordion-button {
   color: black;
 }
 
-#no-monster-error {
-  max-width: 600px;
-  margin-left: auto;
-  margin-right: auto;
-}

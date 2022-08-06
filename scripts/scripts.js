@@ -18,18 +18,21 @@ function init() {
     localStorage.setItem("monsters.settings", JSON.stringify(settings));
   }
 
-  //When all images have loaded, render a random monster.
-  if (images.length == 0) {
-    loadImages(function() {
-      drawRandomMonster(); //TODO bug here. This will never get called if all the example images have been deleted. Re-write to include the localStorage images and handle no images.
-    });
-  } else {
-    drawRandomMonster();
-  }
-
   //Add an event listener to the canvas.
   addMonsterListeners();
   ctx = canvas.getContext('2d');
+
+  //When all images have loaded, render a random monster.
+  if (images.length == 0) {
+    loadImages(function() {
+      drawRandomMonster();
+    });
+    if (NUMBER_OF_EXAMPLES === settings.deletedExamples.length) {
+      drawRandomMonster();
+    }
+  } else {
+    drawRandomMonster();
+  }
 
   //Generate a gallery of all the monster images. The gallery is hidden until selected.
   generateGallery();
