@@ -242,6 +242,7 @@ function addEditorListeners(editorCanvas) {
   ['mousedown', 'touchstart'].forEach(function(e) {
     editorCanvas.addEventListener(e, function(event) {
       monsterEditor.setDrawing(true);
+      monsterEditor.draw(event);
     });
   });
   ['mousemove', 'touchmove'].forEach(function(e) {
@@ -306,10 +307,19 @@ function uploadMonster() {
     if (file.type === "image/png" || file.type === "image/jpeg") {
       monsterEditor.import(URL.createObjectURL(file));
       notie.alert({ type: "success", position: "bottom", text: "Monster Uploaded: " + file.name });
+      document.getElementById("monster-upload").value = "";
     } else {
       notie.alert({ type: "error", position: "bottom", text: "This is an invalid file type (" + file.type + "). Please select an image of type PNG or JPEG." });
     }
   }
+}
+
+/**
+ * Clear the editor canvas and reset the upload field.
+ */
+function clearMonster() {
+  monsterEditor.clear();
+  document.getElementById("monster-upload").value = "";
 }
 
 /**
