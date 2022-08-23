@@ -81,6 +81,7 @@ function drawRandomMonster() {
     "torso" : randomImage(images),
     "legs" : randomImage(images)
   });
+  celebrate(monster);
 }
 
 /**
@@ -226,6 +227,7 @@ function addMonsterListeners() {
           monster.torso = randomImage(images);
       }
       drawMonster(monster);
+      celebrate(monster);
     });
   }
 }
@@ -393,5 +395,19 @@ function createImage(key, src) {
  function AddToIgnoredExamples(id) {
   settings.deletedExamples.push(id);
   localStorage.setItem("monsters.settings", JSON.stringify(settings));
+}
+
+/**
+ * If it's all the same monster, we celebrate with confetti.
+ */
+function celebrate(myMonster) {
+  try {
+    if ((myMonster.head.id == myMonster.torso.id) && (myMonster.torso.id == myMonster.legs.id)) {
+      confetti({ particleCount: 500, spread: 360, startVelocity: 20 });
+      confetti({ particleCount: 500, spread: 360 });
+    }
+  } catch(e) {
+    console.error(e);
+  }
 }
 
