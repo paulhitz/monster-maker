@@ -58,7 +58,7 @@ class Editor {
     this.clear();
     const img = new Image();
     img.onload = () => {
-      this.ctx.drawImage(img, 0, 0);
+      this.ctx.drawImage(img, 0, 0, this.canvas.width, this.canvas.height);
     };
     img.src = dataUrl;
   }
