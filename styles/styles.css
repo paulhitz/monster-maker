@@ -96,13 +96,11 @@ div#gallery-preview img#preview-image {
   width: 100%;
   cursor: default;
 }
-#gallery-preview #preview-edit-button {
-  margin-top: 60px;
-  margin-bottom: 60px;
+#gallery-preview .btn-primary {
+  margin-bottom: 45px;
 }
 @media screen and (max-width: 767px) {
-  #gallery-preview #preview-edit-button {
-    margin-top: 10px;
+  #gallery-preview .btn-primary {
     margin-bottom: 10px;
   }
 }
@@ -132,6 +130,7 @@ canvas#make-canvas {
   margin-left: auto;
   margin-right: auto;
   margin-bottom: 20px;
+  margin-top: 30px;
 }
 #editor-buttons button {
   width: 100%;

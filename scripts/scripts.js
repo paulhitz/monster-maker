@@ -119,14 +119,16 @@ function drawMonster(myMonster) {
 /**
  * Download the current monster as a PNG.
  */
-function download() {
+function download(src) {
   notie.confirm({
     text: 'Download the current monster?',
     submitCallback: function () {
       try {
-        const dataURL = canvas.toDataURL();
+        if (src == null) {
+          src = canvas.toDataURL();
+        }
         const downloadLink = document.createElement('a');
-        downloadLink.href = dataURL;
+        downloadLink.href = src;
         downloadLink.download = "my_monster.png";
         downloadLink.click();
         notie.alert({ type: "success", position: "bottom", text: "Downloading monster..." });
@@ -200,6 +202,9 @@ function displayGalleryPreview(img) {
   };
   document.getElementById("preview-edit-button").onclick = function() {
     editMonster(img.id);
+  };
+  document.getElementById("preview-download-button").onclick = function() {
+    download(img.src);
   };
   document.getElementById("preview-delete-button").onclick = function() {
     deleteMonster(img.id);
