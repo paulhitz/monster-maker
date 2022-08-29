@@ -115,18 +115,15 @@ canvas#make-canvas {
   margin-top: 20px;
   margin-bottom: 20px;
   cursor: crosshair;
-  min-width: 600px;
 }
 #canvas-template {
   background-image: url('../images/monster_template.png');
-  min-width: 600px;
 }
 #brush-colour {
   width: 100%;
 }
 #editor-buttons {
   max-width: 600px;
-  min-width: 600px;
   margin-left: auto;
   margin-right: auto;
   margin-bottom: 20px;
