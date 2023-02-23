@@ -46,6 +46,11 @@
         <path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2Z"/>
       </svg>
     </button>
+    <button id="help-button" type="button" class="btn btn-primary btn-lg" onclick="toggleView('help');" title="Help">
+      <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-question-lg" viewBox="0 0 16 16">
+        <path fill-rule="evenodd" d="M4.475 5.458c-.284 0-.514-.237-.47-.517C4.28 3.24 5.576 2 7.825 2c2.25 0 3.767 1.36 3.767 3.215 0 1.344-.665 2.288-1.79 2.973-1.1.659-1.414 1.118-1.414 2.01v.03a.5.5 0 0 1-.5.5h-.77a.5.5 0 0 1-.5-.495l-.003-.2c-.043-1.221.477-2.001 1.645-2.712 1.03-.632 1.397-1.135 1.397-2.028 0-.979-.758-1.698-1.926-1.698-1.009 0-1.71.529-1.938 1.402-.066.254-.278.461-.54.461h-.777ZM7.496 14c.622 0 1.095-.474 1.095-1.09 0-.618-.473-1.092-1.095-1.092-.606 0-1.087.474-1.087 1.091S6.89 14 7.496 14Z"/>
+      </svg>
+    </button>
   </div>
 
   <button id="back-button" type="button" class="btn btn-primary btn-lg fixed-header-button" onclick="toggleView('monster');" title="Back to the Monster!">
@@ -68,7 +73,7 @@
   </nav>
 
   <div id="no-monster-error" class="alert alert-danger" role="alert">
-    Oh no! There are no monsters to display. You should go create some on the editor page and reload.
+    Oh no! There are no monsters to display. You should go create some on the editor page.
   </div>
   <canvas id="canvas" width="600" height="750">
     <div>
@@ -157,6 +162,37 @@ _#/|##########/\######(   /\   )######/\##########|\#_
       </div>
       <div class="col-md-6">
         <button class="btn btn-primary" type="button" onclick="saveMonster();">Save</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="help">
+    <h1>About</h1>
+    <div class="card">
+      <div class="card-header">What is this?</div>
+      <div class="card-body">
+        <p class="card-text">Monster Maker is a super simple game for kids.</p>
+        <p class="card-text">It allows you to mix-and-match monster heads, torsos and legs in lots of fun combinations. You can even create your own monsters, export them and import new monsters (600x750px).</p>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-header">How to use?</div>
+      <div class="card-body">
+        <p class="card-text">It's played in a browser. Just tap or click on the body part! The recommended way to play is with a tablet but it works well in any modern browser.</p>
+        <p class="card-text">If you have an iOS device, you can add it to your "Home Screen" so it can be accessed via an icon on your device. Simply open this site using Safari and select "Add to Home Screen" from options.</p>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-header">Support</div>
+      <div class="card-body">
+        <p class="card-text">Monster Maker is completely free but small donations are appreciated and help fund maintenance. Thank you for your support!</p>
+        <div id="support-link">
+          <script type='text/javascript' src='https://storage.ko-fi.com/cdn/widget/Widget_2.js'></script>
+          <script type='text/javascript'>
+            kofiwidget2.init('Buy Me a Coffee', '#29abe0', 'O5O1CNH2Q');
+            kofiwidget2.draw();
+          </script>
+        </div>
       </div>
     </div>
   </div>

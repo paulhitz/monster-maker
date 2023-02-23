@@ -6,7 +6,7 @@ Monster Maker is a super simple game for kids.
 
 It allows you to mix-and-match monster heads, torsos and legs in lots of fun combinations. You can even create your own monsters.
 
-It's played in a browser. The recommended way to play is with a tabet but it works perfectly in any modern browser. If you have an iOS device, you can add it to your "Home Screen" so it can be accessed via an icon on your device.
+It's played in a browser. The recommended way to play is with a tablet but it works well in any modern browser. If you have an iOS device, you can add it to your "Home Screen" so it can be accessed via an icon on your device.
 
 ## Screenshots
 

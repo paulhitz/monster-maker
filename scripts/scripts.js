@@ -161,12 +161,22 @@ function toggleView(view) {
       document.getElementById("reload-button").style.display = "none";
       document.getElementById("option-buttons").style.display = "none";
       break;
+    case view === "help":
+      document.getElementById("gallery").style.display = "none";
+      document.getElementById("back-button").style.display = "block";
+      document.getElementById("canvas").style.display = "none";
+      document.getElementById("create").style.display = "none";
+      document.getElementById("help").style.display = "block";
+      document.getElementById("reload-button").style.display = "none";
+      document.getElementById("option-buttons").style.display = "none";
+      break;
     default:
       //Display monster view.
       document.getElementById("gallery").style.display = "none";
       document.getElementById("back-button").style.display = "none";
       document.getElementById("canvas").style.display = "block";
       document.getElementById("create").style.display = "none";
+      document.getElementById("help").style.display = "none";
       document.getElementById("reload-button").style.display = "block";
       document.getElementById("option-buttons").style.display = "block";
   }

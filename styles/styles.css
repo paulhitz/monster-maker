@@ -35,7 +35,7 @@ span#page-title {
 #option-buttons {
   left: 8px;
 }
-#gallery-button, #create-button {
+#gallery-button, #create-button, #help-button {
   margin-left: 4px;
 }
 #back-button {
@@ -75,14 +75,14 @@ canvas#canvas div {
  * Monster gallery styles.
  */
 
-div#gallery, div#create {
+div#gallery, div#create, div#help {
   display: none;
   max-width: 700px;
   width: 90%;
   margin-left: auto;
   margin-right: auto;
 }
-div#gallery h1, div#create h1 {
+div#gallery h1, div#create h1, div#help h1 {
   text-align: center;
 }
 div#gallery img, div#saved-monsters img {
@@ -95,6 +95,7 @@ div#gallery img, div#saved-monsters img {
 div#gallery-preview img#preview-image {
   width: 100%;
   cursor: default;
+  background-color: white;
 }
 #gallery-preview .btn-primary {
   margin-bottom: 45px;
@@ -136,3 +137,15 @@ canvas#make-canvas {
   color: black;
 }
 
+
+/**
+ * Help page styles.
+ */
+
+#help .card {
+  margin-bottom: 20px;
+}
+#support-link {
+  display: flex;
+  justify-content: center;
+}
