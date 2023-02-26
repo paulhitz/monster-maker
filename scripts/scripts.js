@@ -413,13 +413,28 @@ function createImage(key, src) {
 }
 
 /**
- * If it's all the same monster, we celebrate with confetti.
+ * If it's all the same monster, we celebrate with confetti (and unicorns).
  */
 function celebrate(myMonster) {
   try {
     if ((myMonster.head.id == myMonster.torso.id) && (myMonster.torso.id == myMonster.legs.id)) {
-      confetti({ particleCount: 500, spread: 360, startVelocity: 20 });
-      confetti({ particleCount: 500, spread: 360 });
+      confetti({
+        particleCount: 500,
+        spread: 360,
+        scalar: 1.2
+      });
+
+      confetti({
+        particleCount: 300,
+        spread: 360,
+        scalar: 2,
+        shapes: ["text"],
+        shapeOptions: {
+          text: {
+            value: ["🦄", "🌈"]
+          }
+        },
+      });
     }
   } catch(e) {
     console.error(e);
