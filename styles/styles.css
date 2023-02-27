@@ -12,15 +12,14 @@ span#page-title {
   padding-bottom: 8px;
 }
 
-/* Extra Small (E.g. Portrait Phones) */
-@media screen and (max-width: 700px) {
-  span#page-title {
-      padding-left: 75px;
+/* On small screens, replace all the links with a burger menu. */
+@media screen and (max-width: 800px) {
+  #option-buttons {
+    display: none !important;
   }
-}
-@media screen and (max-width: 550px) {
-  #download-button {
-    display: none;
+  #menu-button {
+    display: block !important;
+    position: fixed;
   }
 }
 
@@ -38,7 +37,7 @@ span#page-title {
 #gallery-button, #create-button, #help-button {
   margin-left: 4px;
 }
-#back-button {
+#back-button, #menu-button {
   display: none;
   left: 8px;
 }
