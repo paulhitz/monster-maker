@@ -1,6 +1,6 @@
 # Monster Maker!
 
-Play it now: http://paulhitz.com/monster-maker/
+Play it now: https://monstermaker.fun/
 
 Monster Maker is a super simple game for kids.
 
