@@ -142,12 +142,15 @@ function download(src) {
 
 /**
  * Toggle between the different views (e.g. Monster view, gallery etc.).
+ *
+ * TODO This is well overdue a refactor. Far too much messy repetition.
  */
 function toggleView(view) {
   switch (true) {
     case view === "gallery":
       document.getElementById("gallery").style.display = "block";
       document.getElementById("back-button").style.display = "block";
+      document.getElementById("menu-button").style.setProperty ('display', 'none', 'important');
       document.getElementById("canvas").style.display = "none";
       document.getElementById("create").style.display = "none";
       document.getElementById("reload-button").style.display = "none";
@@ -156,8 +159,19 @@ function toggleView(view) {
     case view === "editor":
       document.getElementById("gallery").style.display = "none";
       document.getElementById("back-button").style.display = "block";
+      document.getElementById("menu-button").style.setProperty ('display', 'none', 'important');
       document.getElementById("canvas").style.display = "none";
       document.getElementById("create").style.display = "block";
+      document.getElementById("reload-button").style.display = "none";
+      document.getElementById("option-buttons").style.display = "none";
+      break;
+    case view === "help":
+      document.getElementById("gallery").style.display = "none";
+      document.getElementById("back-button").style.display = "block";
+      document.getElementById("menu-button").style.setProperty ('display', 'none', 'important');
+      document.getElementById("canvas").style.display = "none";
+      document.getElementById("create").style.display = "none";
+      document.getElementById("help").style.display = "block";
       document.getElementById("reload-button").style.display = "none";
       document.getElementById("option-buttons").style.display = "none";
       break;
@@ -165,8 +179,10 @@ function toggleView(view) {
       //Display monster view.
       document.getElementById("gallery").style.display = "none";
       document.getElementById("back-button").style.display = "none";
+      document.getElementById("menu-button").style.setProperty ('display', 'block');
       document.getElementById("canvas").style.display = "block";
       document.getElementById("create").style.display = "none";
+      document.getElementById("help").style.display = "none";
       document.getElementById("reload-button").style.display = "block";
       document.getElementById("option-buttons").style.display = "block";
   }
@@ -403,13 +419,28 @@ function createImage(key, src) {
 }
 
 /**
- * If it's all the same monster, we celebrate with confetti.
+ * If it's all the same monster, we celebrate with confetti (and unicorns).
  */
 function celebrate(myMonster) {
   try {
     if ((myMonster.head.id == myMonster.torso.id) && (myMonster.torso.id == myMonster.legs.id)) {
-      confetti({ particleCount: 500, spread: 360, startVelocity: 20 });
-      confetti({ particleCount: 500, spread: 360 });
+      confetti({
+        particleCount: 500,
+        spread: 360,
+        scalar: 1.2
+      });
+
+      confetti({
+        particleCount: 300,
+        spread: 360,
+        scalar: 2,
+        shapes: ["text"],
+        shapeOptions: {
+          text: {
+            value: ["🦄", "🌈"]
+          }
+        },
+      });
     }
   } catch(e) {
     console.error(e);
